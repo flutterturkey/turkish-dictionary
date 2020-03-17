@@ -13,7 +13,7 @@ Unofficial Turkish Dictionary app of [TDK (Turkish Language Association)](http:/
 - [Feyza Nur Demirci](https://dribbble.com/feyzademirci)
 - [Şahin Abut](https://dribbble.com/sahinabut)
 
-## Development
+### Development
 
 - We are using Trello for project management
 - [Trello Board](https://trello.com/b/as4TZkdx/turkish-dictionary)
