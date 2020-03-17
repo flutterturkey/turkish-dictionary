@@ -31,19 +31,20 @@ class _SplashPageState extends State<SplashPage> {
               color: Colors.transparent,
               image: DecorationImage(image: AssetImage('assets/bg.jpg'), fit: BoxFit.cover),
             ),
-            child: Center(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Stack(
               children: <Widget>[
-                SvgPicture.asset(
-                  AppConstant.svgLogo,
-                  height: 100,
+                Positioned(
+                  top: 300,
+                  left: 50,
+                  right: 50,
+                  child: SvgPicture.asset(
+                    AppConstant.svgLogo,
+                    height: 100,
+                  ),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 75.0),
-                  child: Text(AppConstant.appName, style: Theme.of(context).textTheme.body2.copyWith(color: Colors.white)),
-                ),
+                Positioned(
+                    top: 650, left: 150, right: 150, child: Text(AppConstant.appName, style: Theme.of(context).textTheme.body2.copyWith(color: Colors.white))),
               ],
-            ))));
+            )));
   }
 }
