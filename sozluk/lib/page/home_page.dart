@@ -28,48 +28,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget get _body => Center(
         child: Stack(
-          children: <Widget>[
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  height: size.height * .35,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    image: DecorationImage(
-                      image: AssetImage('assets/bg.jpg'),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  child: Center(
-                    child: SvgPicture.asset(
-                      AppConstant.svgLogo,
-                      height: 40,
-                    ),
-                  ),
-                ),
-                Expanded(
-                  child: Center(
-                    child: Text('Content here'),
-                  ),
-                ),
-              ],
-            ),
-            Positioned(
-              top: size.height * .35 - 32,
-              left: 0,
-              right: 0,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Material(
-                  elevation: 4,
-                  borderRadius: BorderRadius.circular(8),
-                  child: AppWidget.getSearchBox(),
-                ),
-              ),
-            ),
-          ],
+          children: <Widget>[_pageBody, _searchBar, _drawerButton],
         ),
       );
 
@@ -77,8 +36,9 @@ class _HomePageState extends State<HomePage> {
         color: AppConstant.colorParagraph2,
         backgroundColor: Colors.white,
         activeColor: AppConstant.colorPrimary,
-        elevation: 0.6,
+        elevation: 0.5,
         height: 56,
+        initialActiveIndex: 1,
         style: TabStyle.fixedCircle,
         items: <TabItem>[
           TabItem(icon: Icons.history, title: ''),
@@ -86,4 +46,279 @@ class _HomePageState extends State<HomePage> {
           TabItem(icon: Icons.bookmark_border, title: ''),
         ],
       );
+
+  Widget get _pageBody => Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          _tdkCover(0.35),
+          Expanded(
+            child: Center(
+              child: Text('Content here'),
+            ),
+          ),
+        ],
+      );
+
+  Widget get _searchBar => Positioned(
+        top: size.height * .35 - 32,
+        left: 0,
+        right: 0,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Material(
+            elevation: 4,
+            borderRadius: BorderRadius.circular(8),
+            child: AppWidget.getSearchBox(),
+          ),
+        ),
+      );
+
+  Widget get _drawerButton => Padding(
+        padding: const EdgeInsets.fromLTRB(0, 25, 10, 0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.more_horiz,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                _onDrawerButtonPressed();
+              },
+            )
+          ],
+        ),
+      );
+
+  Widget _tdkCover(double scale) => Container(
+        height: size.height * scale,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          image: DecorationImage(
+            image: AssetImage('assets/bg.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: SvgPicture.asset(
+            AppConstant.svgLogo,
+            height: 40,
+          ),
+        ),
+      );
+
+  Widget _pullDown(Color color) => Center(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 16.0),
+          child: Container(
+            width: 58,
+            height: 4,
+            decoration: BoxDecoration(color: color, borderRadius: BorderRadius.all(Radius.circular(14))),
+          ),
+        ),
+      );
+
+  Widget get _buildDrawerItem => Column(
+        children: <Widget>[
+          Stack(
+            children: <Widget>[
+              _tdkCover(0.25),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 125.0),
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        AppConstant.appDescription,
+                        style: TextStyle(fontSize: 14, color: Colors.white),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: Text(
+                          AppConstant.appVersion,
+                          style: TextStyle(fontSize: 12, color: AppConstant.colorVersionText),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              _pullDown(AppConstant.colorPullDown1),
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: MaterialButton(
+                  minWidth: 328,
+                  height: 48,
+                  elevation: 0,
+                  color: AppConstant.colorDrawerButton,
+                  shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(8)),
+                  child: Text(
+                    AppConstant.hakkinda,
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppConstant.colorHeading),
+                  ),
+                  onPressed: () {
+                    _onHakkindaButtonPressed();
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: MaterialButton(
+                  minWidth: 328,
+                  height: 48,
+                  elevation: 0,
+                  color: AppConstant.colorDrawerButton,
+                  shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(8)),
+                  child: Text(
+                    AppConstant.iletisim,
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppConstant.colorHeading),
+                  ),
+                  onPressed: () {
+                    _onIletisimButtonPressed();
+                  },
+                ),
+              ),
+            ],
+          )
+        ],
+      );
+
+  Widget get _buildHakkindaItem => Column(
+        children: <Widget>[
+          _pullDown(AppConstant.colorPullDown2),
+          Padding(
+            padding: const EdgeInsets.only(top: 32.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                new RawMaterialButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    _onDrawerButtonPressed();
+                  },
+                  child: new Icon(
+                    Icons.arrow_back_ios,
+                    color: AppConstant.colorBackButton,
+                    size: 13.0,
+                  ),
+                  shape: new CircleBorder(),
+                  elevation: 0,
+                  fillColor: AppConstant.colorDrawerButton,
+                  padding: const EdgeInsets.all(15.0),
+                ),
+                Spacer(),
+                Text(
+                  AppConstant.hakkinda,
+                  style: TextStyle(fontSize: 14, color: AppConstant.colorHeading, fontWeight: FontWeight.w500),
+                ),
+                Spacer(),
+                Spacer(),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 50.0),
+            child: Center(
+              child: SvgPicture.asset(
+                AppConstant.svgLogoRed,
+                height: 32,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(40, 32, 40, 0),
+            child: Center(
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  style: TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w500,
+                    color: AppConstant.colorAppDescription,
+                  ),
+                  children: <TextSpan>[
+                    TextSpan(text: AppConstant.appLongRichDescription, style: TextStyle(fontWeight: FontWeight.bold)),
+                    TextSpan(text: AppConstant.appLongDescription),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      );
+
+  void _onDrawerButtonPressed() {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            color: Colors.transparent,
+            height: 410,
+            child: Container(
+              child: _buildDrawerItem,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: new BorderRadius.only(
+                  topLeft: const Radius.circular(10),
+                  topRight: const Radius.circular(10),
+                ),
+              ),
+            ),
+          );
+        });
+  }
+
+  void _onHakkindaButtonPressed() {
+    Navigator.pop(context);
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            color: Colors.transparent,
+            height: 410,
+            child: Container(
+              child: _buildHakkindaItem,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: new BorderRadius.only(
+                  topLeft: const Radius.circular(10),
+                  topRight: const Radius.circular(10),
+                ),
+              ),
+            ),
+          );
+        });
+  }
+
+  void _onIletisimButtonPressed() {
+    Navigator.pop(context);
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Container(
+            color: Colors.transparent,
+            height: 410,
+            child: Container(
+              child: _buildDrawerItem,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: new BorderRadius.only(
+                  topLeft: const Radius.circular(10),
+                  topRight: const Radius.circular(10),
+                ),
+              ),
+            ),
+          );
+        });
+  }
 }
