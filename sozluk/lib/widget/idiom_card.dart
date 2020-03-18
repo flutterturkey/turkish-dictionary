@@ -29,7 +29,7 @@ class IdiomCard extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 12,
+                height: 8,
               ),
               Text(
                 '$content',
