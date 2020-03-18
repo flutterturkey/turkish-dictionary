@@ -1,7 +1,9 @@
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sozluk/util/app_constant.dart';
 
+import '../util/app_constant.dart';
 import '../util/app_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,13 +14,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  var size;
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    size = MediaQuery.of(context).size;
 
     return Scaffold(
       backgroundColor: AppConstant.colorPageBg,
-      body: Center(
+      body: _body,
+      bottomNavigationBar: _bottomNavigationBarr,
+    );
+  }
+
+  Widget get _body => Center(
         child: Stack(
           children: <Widget>[
             Column(
@@ -63,7 +71,19 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-      ),
-    );
-  }
+      );
+
+  Widget get _bottomNavigationBarr => ConvexAppBar(
+        color: AppConstant.colorParagraph2,
+        backgroundColor: Colors.white,
+        activeColor: AppConstant.colorPrimary,
+        elevation: 0.6,
+        height: 56,
+        style: TabStyle.fixedCircle,
+        items: <TabItem>[
+          TabItem(icon: Icons.history, title: ''),
+          TabItem(icon: Icons.search, title: ''),
+          TabItem(icon: Icons.bookmark_border, title: ''),
+        ],
+      );
 }
