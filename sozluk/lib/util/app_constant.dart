@@ -29,6 +29,8 @@ class AppConstant {
   static const double fontSizeTitle = 22;
   static const double fontSizeHeadline = 24;
   static const double fontSizeDisplay = 32;
+  static const double fontSizeIdiomCardTitle = 18;
+  static const double fontSizeIdiomCardContent = 12;
   //endregion
 
   //region strings
@@ -40,6 +42,7 @@ class AppConstant {
   static final String appLongRichDescription = "Türk Dil Kurumu";
   static final String appLongDescription =
       '’nun 1945’ten beri yayımlanan Türkçe Sözk’ünün 2011 yılında yapılan 11. baskısının gözden geçirilip güncellenerek taşınabilir cihazlar için hazırlanan sürümüdür.';
+  //endregion
   //endregion
 
   //region Page

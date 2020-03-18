@@ -5,6 +5,7 @@ import 'package:sozluk/util/app_constant.dart';
 
 import '../util/app_constant.dart';
 import '../util/app_widget.dart';
+import '../widget/idiom_card.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -37,7 +38,8 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.white,
         activeColor: AppConstant.colorPrimary,
         elevation: 0.5,
-        height: 56,
+        //height causes layout overflow on some devies
+        //height: 56,
         initialActiveIndex: 1,
         style: TabStyle.fixedCircle,
         items: <TabItem>[
@@ -51,11 +53,65 @@ class _HomePageState extends State<HomePage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           _tdkCover(0.35),
-          Expanded(
-            child: Center(
-              child: Text('Content here'),
-            ),
-          ),
+           Expanded(
+                    child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 16, right: 16, top: 48, bottom: 32),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          Text(
+                            'Bir Deyim',
+                            style: TextStyle(
+                                color: AppConstant.colorProverbsIdiomsText),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 8),
+                      Expanded(
+                          child: IdiomCard(
+                              title: 'on para', content: 'çok az (para).')),
+                      SizedBox(height: 24),
+                      Row(
+                        children: <Widget>[
+                          Text(
+                            'Bir Atasözü',
+                            style: TextStyle(
+                                color: AppConstant.colorProverbsIdiomsText),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 8),
+                      Expanded(
+                        child: IdiomCard(
+                            title: 'siyem siyem ağlamak',
+                            content:
+                                'hafif hafif, ince ince, durmadan gözyaşı dökmek.'),
+                      ),
+                      SizedBox(height: 24),
+                      Row(
+                        children: <Widget>[
+                          Text(
+                            'Bir Kelime',
+                            style: TextStyle(
+                                color: AppConstant.colorProverbsIdiomsText),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 8),
+                      Expanded(
+                        child: IdiomCard(
+                            title: 'Kalem',
+                            content:
+                                'Yazma, çizme vb. işlerde kullanılan çeşitli biçimlerde araç.'),
+                      ),
+                    ],
+                  ),
+                )),
+              
         ],
       );
 
