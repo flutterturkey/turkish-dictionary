@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-
-import '../util/app_constant.dart';
-import '../util/app_constant.dart';
-import '../util/app_constant.dart';
 import '../util/app_constant.dart';
 import '../util/app_constant.dart';
 
@@ -34,6 +30,16 @@ class _HistoryPageState extends State<HistoryPage> {
           'Geçmiş',
           style: TextStyle(color: AppConstant.colorHeading),
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.clear, color: AppConstant.colorHeading,),
+            onPressed: () {
+              setState(() {
+                isEmpty = !isEmpty;
+              });
+            },
+          )
+        ],
       ),
       body: Column(
         children: <Widget>[
