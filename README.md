@@ -14,9 +14,12 @@ Unofficial Turkish Dictionary app of [TDK (Turkish Language Association)](http:/
 - [Şahin Abut](https://dribbble.com/sahinabut)
 
 #### Development
+| Line Length for Code Formatting |
+| ---      |
+| ![line-length](https://user-images.githubusercontent.com/21019611/76961012-a3286600-692d-11ea-933c-1c4febff58b7.png) |  
 
-- We are using Trello for project management
-- [Trello Board](https://trello.com/b/as4TZkdx/turkish-dictionary)
+- We are using Trello for project management. [Trello Board](https://trello.com/b/as4TZkdx/turkish-dictionary)
+
 
 #### Resources
 
