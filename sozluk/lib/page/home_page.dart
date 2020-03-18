@@ -54,7 +54,8 @@ class _HomePageState extends State<HomePage> {
           _tdkCover(0.35),
           Expanded(
             child: SingleChildScrollView(
-              padding: EdgeInsets.only(left: 16, right: 16, top: 48, bottom: 32),
+              padding:
+                  EdgeInsets.only(left: 16, right: 16, top: 48, bottom: 32),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -99,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                       title: 'Kalem',
                       content:
                           'Yazma, çizme vb. işlerde kullanılan çeşitli biçimlerde araç.'),
-                           SizedBox(height: 24),
+                  SizedBox(height: 24),
                   Row(
                     children: <Widget>[
                       Text(
@@ -114,7 +115,7 @@ class _HomePageState extends State<HomePage> {
                       title: 'Kalem',
                       content:
                           'Yazma, çizme vb. işlerde kullanılan çeşitli biçimlerde araç.'),
-                           SizedBox(height: 24),
+                  SizedBox(height: 24),
                   Row(
                     children: <Widget>[
                       Text(
@@ -204,10 +205,11 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           Stack(
             children: <Widget>[
-              _tdkCover(0.25),
+              _tdkCover(0.20),
+
               Center(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 125.0),
+                  padding:  EdgeInsets.only(top: MediaQuery.of(context).size.height * .14),
                   child: Column(
                     children: <Widget>[
                       Text(
@@ -227,12 +229,15 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+            
               _pullDown(AppConstant.colorPullDown1),
             ],
           ),
+          SizedBox(height: 16,),
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(top: 16.0),
@@ -357,7 +362,7 @@ class _HomePageState extends State<HomePage> {
         builder: (context) {
           return Container(
             color: Colors.transparent,
-            height: 410,
+            height: MediaQuery.of(context).size.height * .4,
             child: Container(
               child: _buildDrawerItem,
               decoration: BoxDecoration(
