@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sozluk/util/app_constant.dart';
 
@@ -29,6 +30,7 @@ class AppWidget {
     return Row(
       children: <Widget>[
         Flexible(
+          fit: FlexFit.tight,
           child: Container(
             height: 52,
             decoration: BoxDecoration(
@@ -40,12 +42,12 @@ class AppWidget {
                       ? BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 5.0, offset: Offset(0, 10))
                       : BoxShadow(color: Colors.transparent)
                 ]),
-            margin: const EdgeInsets.symmetric(horizontal: 0),
+            margin: const EdgeInsets.symmetric(horizontal: 16),
             child: Theme(
               data: AppWidget.getThemeData().copyWith(primaryColor: Colors.grey),
               child: Row(
                 children: <Widget>[
-                  Expanded(
+                  Flexible(
                     child: TextFormField(
                       focusNode: focusNode,
                       controller: _searchController,
@@ -62,18 +64,6 @@ class AppWidget {
                             color: AppConstant.colorBackButton,
                           ),
                         ),
-                        suffixIcon: isKeyboardVisible
-                            ? IconButton(
-                                icon: Icon(
-                                  Icons.close,
-                                  color: AppConstant.colorBackButton,
-                                  size: 20,
-                                ),
-                                onPressed: () {
-                                  _searchController.text = "";
-                                },
-                              )
-                            : null,
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: BorderSide(
@@ -91,34 +81,46 @@ class AppWidget {
                       ),
                     ),
                   ),
-/* 
-                  AnimatedOpacity(
-                    opacity: !isKeyboardVisible ? 0.0 : 1.0,
-                    duration: Duration(milliseconds: 1000),
-                    child: Container(
-
-                      margin: EdgeInsets.only(left: 16),
-                      child: InkWell(
-                        onTap: () {
-                          FocusScope.of(context).requestFocus(FocusNode());
-                        },
-                        child: Container(
-                            padding: EdgeInsets.only(
-                                top: 12, bottom: 12, right: 4, left: 4),
-                            child: Text(
-                              "Vazgeç",
-                              style: TextStyle(
-                                  color: AppConstant.colorHeading,
-                                  fontWeight: FontWeight.w500),
-                            )),
-                      ),
-                    ),
-                  ), */
+                  isKeyboardVisible
+                      ? IconButton(
+                          icon: Icon(
+                            Icons.close,
+                            color: AppConstant.colorBackButton,
+                            size: 20,
+                          ),
+                          onPressed: () {
+                            _searchController.text = "";
+                          },
+                        )
+                      : Container()
                 ],
               ),
             ),
           ),
         ),
+        isKeyboardVisible
+            ? AnimatedOpacity(
+                opacity: !isKeyboardVisible ? 0.0 : 1.0,
+                duration: Duration(milliseconds: 1000),
+                child: Container(
+                  margin: EdgeInsets.only(right: 16),
+                  child: InkWell(
+                    onTap: () {
+                      FocusScope.of(context).requestFocus(FocusNode());
+                    },
+                    child: Container(
+                        padding: EdgeInsets.only(
+                            top: 12, bottom: 12, right: 4, left: 4),
+                        child: Text(
+                          "Vazgeç",
+                          style: TextStyle(
+                              color: AppConstant.colorHeading,
+                              fontWeight: FontWeight.w500),
+                        )),
+                  ),
+                ),
+              )
+            : Container()
       ],
     );
   }

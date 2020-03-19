@@ -18,6 +18,7 @@ class _HomePageState extends State<HomePage> {
   bool isKeyboardVisible = false;
 
   FocusNode _searchFn = FocusNode();
+
   @override
   void initState() {
     _searchFn.addListener(_searchFnListener);
@@ -122,15 +123,8 @@ class _HomePageState extends State<HomePage> {
             top: !isKeyboardVisible ? size.height * .35 - 26 : 40,
             left: 0,
             right: 0,
-            child: Container(
-              margin: EdgeInsets.symmetric(horizontal: 16),
-              child: Material(
-                borderRadius: BorderRadius.circular(8),
-                elevation: 4,
-                shadowColor: Colors.black26,
-                child: AppWidget.getSearchBox(isKeyboardVisible, context, focusNode: _searchFn),
-              ),
-            ),
+            child: AppWidget.getSearchBox(isKeyboardVisible, context,
+                focusNode: _searchFn),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 25, 10, 0),
