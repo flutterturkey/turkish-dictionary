@@ -28,12 +28,9 @@ class _SearchPageState extends State<SearchPage> {
               controller: _searchText,
               decoration: InputDecoration(
                 hintText: 'Arama',
-                focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: AppConstant.colorPrimary)),
+                focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: AppConstant.colorPrimary)),
                 hoverColor: AppConstant.colorPrimary,
-                border: OutlineInputBorder(
-                    borderSide: BorderSide(color: AppConstant.colorPrimary),
-                    borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                border: OutlineInputBorder(borderSide: BorderSide(color: AppConstant.colorPrimary), borderRadius: BorderRadius.all(Radius.circular(10.0))),
               ),
             ),
           ),
@@ -67,8 +64,7 @@ class _SearchPageState extends State<SearchPage> {
                 child: Container(
                   color: Color(0xFFF0F0F0),
                   child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 19, right: 19, top: 16, bottom: 16),
+                    padding: const EdgeInsets.only(left: 19, right: 19, top: 16, bottom: 16),
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
@@ -80,10 +76,7 @@ class _SearchPageState extends State<SearchPage> {
                             padding: const EdgeInsets.only(right: 16, left: 16),
                             child: Text(
                               vowels[index],
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .body2
-                                  .copyWith(letterSpacing: 0.2),
+                              style: Theme.of(context).textTheme.body2.copyWith(letterSpacing: 0.2),
                             ),
                           ),
                         ],
@@ -101,10 +94,7 @@ class _SearchPageState extends State<SearchPage> {
           right: 242,
           child: Text(
             'SON ARAMALAR',
-            style: Theme.of(context)
-                .textTheme
-                .body2
-                .copyWith(color: AppConstant.colorParagraph2),
+            style: Theme.of(context).textTheme.body2.copyWith(color: AppConstant.colorParagraph2),
           ),
         ),
         Positioned(
@@ -135,10 +125,7 @@ class _SearchPageState extends State<SearchPage> {
                               padding: const EdgeInsets.only(left: 16.0),
                               child: Text(
                                 'kalem',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .body2
-                                    .copyWith(color: AppConstant.colorHeading),
+                                style: Theme.of(context).textTheme.body2.copyWith(color: AppConstant.colorHeading),
                               ),
                             )
                           ],

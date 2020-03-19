@@ -41,26 +41,17 @@ class _HomePageState extends State<HomePage> {
     size = MediaQuery.of(context).size;
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
-          statusBarIconBrightness:
-              isKeyboardVisible ? Brightness.dark : Brightness.light),
+      value: SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarIconBrightness: isKeyboardVisible ? Brightness.dark : Brightness.light),
       child: Stack(
         children: <Widget>[
           Column(
             children: <Widget>[
-              AnimatedOpacity(
-                  opacity: isKeyboardVisible ? 0.0 : 1,
-                  duration: Duration(milliseconds: 220),
-                  child: _tdkCover(0.35)),
+              AnimatedOpacity(opacity: isKeyboardVisible ? 0.0 : 1, duration: Duration(milliseconds: 220), child: _tdkCover(0.35)),
               Expanded(
                 child: SingleChildScrollView(
-                  padding:
-                      EdgeInsets.only(left: 16, right: 16, top: 48, bottom: 32),
+                  padding: EdgeInsets.only(left: 16, right: 16, top: 48, bottom: 32),
                   child: Padding(
-                      padding: !isKeyboardVisible
-                          ? EdgeInsets.only(top: 0.0)
-                          : EdgeInsets.only(top: 64.0),
+                      padding: !isKeyboardVisible ? EdgeInsets.only(top: 0.0) : EdgeInsets.only(top: 64.0),
                       child: isKeyboardVisible
                           ? buildSearchBody()
                           : Column(
@@ -70,80 +61,56 @@ class _HomePageState extends State<HomePage> {
                                   children: <Widget>[
                                     Text(
                                       'Bir Deyim',
-                                      style: TextStyle(
-                                          color: AppConstant
-                                              .colorProverbsIdiomsText),
+                                      style: TextStyle(color: AppConstant.colorProverbsIdiomsText),
                                     ),
                                   ],
                                 ),
                                 SizedBox(height: 8),
-                                IdiomCard(
-                                    title: 'on para',
-                                    content: 'çok az (para).'),
+                                IdiomCard(title: 'on para', content: 'çok az (para).'),
                                 SizedBox(height: 24),
                                 Row(
                                   children: <Widget>[
                                     Text(
                                       'Bir Atasözü',
-                                      style: TextStyle(
-                                          color: AppConstant
-                                              .colorProverbsIdiomsText),
+                                      style: TextStyle(color: AppConstant.colorProverbsIdiomsText),
                                     ),
                                   ],
                                 ),
                                 SizedBox(height: 8),
-                                IdiomCard(
-                                    title: 'siyem siyem ağlamak',
-                                    content:
-                                        'hafif hafif, ince ince, durmadan gözyaşı dökmek.'),
+                                IdiomCard(title: 'siyem siyem ağlamak', content: 'hafif hafif, ince ince, durmadan gözyaşı dökmek.'),
                                 SizedBox(height: 24),
                                 Row(
                                   children: <Widget>[
                                     Text(
                                       'Bir Kelime',
-                                      style: TextStyle(
-                                          color: AppConstant
-                                              .colorProverbsIdiomsText),
+                                      style: TextStyle(color: AppConstant.colorProverbsIdiomsText),
                                     ),
                                   ],
                                 ),
                                 SizedBox(height: 8),
-                                IdiomCard(
-                                    title: 'Kalem',
-                                    content:
-                                        'Yazma, çizme vb. işlerde kullanılan çeşitli biçimlerde araç.'),
+                                IdiomCard(title: 'Kalem', content: 'Yazma, çizme vb. işlerde kullanılan çeşitli biçimlerde araç.'),
                                 SizedBox(height: 24),
                                 Row(
                                   children: <Widget>[
                                     Text(
                                       'Bir Kelime',
-                                      style: TextStyle(
-                                          color: AppConstant
-                                              .colorProverbsIdiomsText),
+                                      style: TextStyle(color: AppConstant.colorProverbsIdiomsText),
                                     ),
                                   ],
                                 ),
                                 SizedBox(height: 8),
-                                IdiomCard(
-                                    title: 'Kalem',
-                                    content:
-                                        'Yazma, çizme vb. işlerde kullanılan çeşitli biçimlerde araç.'),
+                                IdiomCard(title: 'Kalem', content: 'Yazma, çizme vb. işlerde kullanılan çeşitli biçimlerde araç.'),
                                 SizedBox(height: 24),
                                 Row(
                                   children: <Widget>[
                                     Text(
                                       'Bir Kelime',
-                                      style: TextStyle(
-                                          color: AppConstant
-                                              .colorProverbsIdiomsText),
+                                      style: TextStyle(color: AppConstant.colorProverbsIdiomsText),
                                     ),
                                   ],
                                 ),
                                 SizedBox(height: 8),
-                                IdiomCard(
-                                    title: 'Kalem',
-                                    content:
-                                        'Yazma, çizme vb. işlerde kullanılan çeşitli biçimlerde araç.'),
+                                IdiomCard(title: 'Kalem', content: 'Yazma, çizme vb. işlerde kullanılan çeşitli biçimlerde araç.'),
                               ],
                             )),
                 ),
@@ -161,8 +128,7 @@ class _HomePageState extends State<HomePage> {
                 borderRadius: BorderRadius.circular(8),
                 elevation: 4,
                 shadowColor: Colors.black26,
-                child: AppWidget.getSearchBox(isKeyboardVisible, context,
-                    focusNode: _searchFn),
+                child: AppWidget.getSearchBox(isKeyboardVisible, context, focusNode: _searchFn),
               ),
             ),
           ),
@@ -211,10 +177,7 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.only(right: 16, left: 16),
                         child: Text(
                           vowels[index],
-                          style: Theme.of(context)
-                              .textTheme
-                              .body2
-                              .copyWith(letterSpacing: 0.2),
+                          style: Theme.of(context).textTheme.body2.copyWith(letterSpacing: 0.2),
                         ),
                       ),
                     ],
@@ -253,9 +216,7 @@ class _HomePageState extends State<HomePage> {
           child: Container(
             width: 58,
             height: 4,
-            decoration: BoxDecoration(
-                color: color,
-                borderRadius: BorderRadius.all(Radius.circular(14))),
+            decoration: BoxDecoration(color: color, borderRadius: BorderRadius.all(Radius.circular(14))),
           ),
         ),
       );
@@ -267,8 +228,7 @@ class _HomePageState extends State<HomePage> {
               _tdkCover(0.20),
               Center(
                 child: Padding(
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * .14),
+                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * .14),
                   child: Column(
                     children: <Widget>[
                       Text(
@@ -279,9 +239,7 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.only(top: 10.0),
                         child: Text(
                           AppConstant.appVersion,
-                          style: TextStyle(
-                              fontSize: 12,
-                              color: AppConstant.colorVersionText),
+                          style: TextStyle(fontSize: 12, color: AppConstant.colorVersionText),
                         ),
                       ),
                     ],
@@ -306,14 +264,10 @@ class _HomePageState extends State<HomePage> {
                   height: 48,
                   elevation: 0,
                   color: AppConstant.colorDrawerButton,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(8)),
+                  shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(8)),
                   child: Text(
                     AppConstant.hakkinda,
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: AppConstant.colorHeading),
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppConstant.colorHeading),
                   ),
                   onPressed: () {
                     _onHakkindaButtonPressed();
@@ -327,14 +281,10 @@ class _HomePageState extends State<HomePage> {
                   height: 48,
                   elevation: 0,
                   color: AppConstant.colorDrawerButton,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(8)),
+                  shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(8)),
                   child: Text(
                     AppConstant.iletisim,
-                    style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: AppConstant.colorHeading),
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppConstant.colorHeading),
                   ),
                   onPressed: () {
                     _onIletisimButtonPressed();
@@ -373,10 +323,7 @@ class _HomePageState extends State<HomePage> {
                 Spacer(),
                 Text(
                   AppConstant.hakkinda,
-                  style: TextStyle(
-                      fontSize: 14,
-                      color: AppConstant.colorHeading,
-                      fontWeight: FontWeight.w500),
+                  style: TextStyle(fontSize: 14, color: AppConstant.colorHeading, fontWeight: FontWeight.w500),
                 ),
                 Spacer(),
                 Spacer(),
@@ -404,9 +351,7 @@ class _HomePageState extends State<HomePage> {
                     color: AppConstant.colorAppDescription,
                   ),
                   children: <TextSpan>[
-                    TextSpan(
-                        text: AppConstant.appLongRichDescription,
-                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    TextSpan(text: AppConstant.appLongRichDescription, style: TextStyle(fontWeight: FontWeight.bold)),
                     TextSpan(text: AppConstant.appLongDescription),
                   ],
                 ),

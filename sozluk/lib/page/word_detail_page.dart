@@ -65,8 +65,7 @@ class _WordDetailPageState extends State<WordDetailPage> {
                     child: Row(
                       children: <Widget>[
                         _horizontalCategoryItem(id: 0, title: 'Sözcük'),
-                        _horizontalCategoryItem(
-                            id: 1, title: 'Atasözü & Deyim'),
+                        _horizontalCategoryItem(id: 1, title: 'Atasözü & Deyim'),
                         _horizontalCategoryItem(id: 2, title: 'Lorem'),
                         _horizontalCategoryItem(id: 3, title: 'Ipsum'),
                         _horizontalCategoryItem(id: 4, title: 'Dolor'),
@@ -80,8 +79,7 @@ class _WordDetailPageState extends State<WordDetailPage> {
                       children: <Widget>[
                         Text(
                           'Kalem',
-                          style: TextStyle(
-                              fontSize: 32, fontWeight: FontWeight.bold),
+                          style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           height: 8,
@@ -110,8 +108,7 @@ class _WordDetailPageState extends State<WordDetailPage> {
                                     child: Container(
                                       height: 48,
                                       width: 48,
-                                      child: Center(
-                                          child: Icon(Icons.settings_voice)),
+                                      child: Center(child: Icon(Icons.settings_voice)),
                                     ),
                                   ),
                                 ),
@@ -153,9 +150,7 @@ class _WordDetailPageState extends State<WordDetailPage> {
                                   child: Center(
                                     child: Text(
                                       'Türk İşaret Dili',
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color: AppConstant.colorParagraph2),
+                                      style: TextStyle(fontWeight: FontWeight.bold, color: AppConstant.colorParagraph2),
                                     ),
                                   ),
                                 ),
@@ -180,8 +175,7 @@ class _WordDetailPageState extends State<WordDetailPage> {
                                   children: <Widget>[
                                     Text(
                                       '1',
-                                      style: TextStyle(
-                                          color: AppConstant.colorParagraph2),
+                                      style: TextStyle(color: AppConstant.colorParagraph2),
                                     ),
                                     SizedBox(
                                       width: 8,
@@ -203,32 +197,30 @@ class _WordDetailPageState extends State<WordDetailPage> {
                                       ),
                                       Text(
                                         'Yazma, çizme vb. işlerde kullanılan çeşitli biçimlerde araç:',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.black87),
+                                        style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black87),
                                       ),
                                       SizedBox(
                                         height: 12,
                                       ),
                                       Text(
                                         '"Kâğıt, kalem, mürekkep, hepsi masanın üstündedir." - Falih Rıfkı Atay',
-                                        style: TextStyle(
-                                            color: AppConstant.colorParagraph),
+                                        style: TextStyle(color: AppConstant.colorParagraph),
                                       ),
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 8,),
+                                SizedBox(
+                                  height: 8,
+                                ),
                                 Divider(),
-
-                                SizedBox(height: 8,),
-
-                                  Row(
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Row(
                                   children: <Widget>[
                                     Text(
                                       '2',
-                                      style: TextStyle(
-                                          color: AppConstant.colorParagraph2),
+                                      style: TextStyle(color: AppConstant.colorParagraph2),
                                     ),
                                     SizedBox(
                                       width: 8,
@@ -250,22 +242,18 @@ class _WordDetailPageState extends State<WordDetailPage> {
                                       ),
                                       Text(
                                         'Yazma, çizme vb. işlerde kullanılan çeşitli biçimlerde araç:',
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.black87),
+                                        style: TextStyle(fontWeight: FontWeight.w600, color: Colors.black87),
                                       ),
                                       SizedBox(
                                         height: 12,
                                       ),
                                       Text(
                                         '"Kâğıt, kalem, mürekkep, hepsi masanın üstündedir." - Falih Rıfkı Atay',
-                                        style: TextStyle(
-                                            color: AppConstant.colorParagraph),
+                                        style: TextStyle(color: AppConstant.colorParagraph),
                                       ),
                                     ],
                                   ),
                                 ),
-                              
                               ],
                             ),
                           ),
@@ -289,8 +277,7 @@ class _WordDetailPageState extends State<WordDetailPage> {
           _selectedCategory = id;
         });
 
-        _pageController.animateToPage(id,
-            duration: Duration(milliseconds: 300), curve: Curves.ease);
+        _pageController.animateToPage(id, duration: Duration(milliseconds: 300), curve: Curves.ease);
       },
       borderRadius: BorderRadius.circular(16),
       child: Padding(
@@ -302,9 +289,7 @@ class _WordDetailPageState extends State<WordDetailPage> {
             Text('$title',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontWeight: _selectedCategory == id
-                      ? FontWeight.bold
-                      : FontWeight.normal,
+                  fontWeight: _selectedCategory == id ? FontWeight.bold : FontWeight.normal,
                 )),
             SizedBox(
               height: 4,
@@ -313,8 +298,7 @@ class _WordDetailPageState extends State<WordDetailPage> {
               duration: Duration(milliseconds: 300),
               height: 2,
               width: _selectedCategory == id ? title.length * 4.5 : 0,
-              decoration: BoxDecoration(
-                  color: Colors.red, borderRadius: BorderRadius.circular(4)),
+              decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(4)),
             ),
           ],
         ),

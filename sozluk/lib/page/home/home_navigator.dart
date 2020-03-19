@@ -12,11 +12,7 @@ class HomeNavigator extends StatefulWidget {
 class _HomeNavigatorState extends State<HomeNavigator> {
   int _currentPage = 1;
 
-  List<Widget> _pages = [
-    HistoryPage(),
-    HomePage(),
-    Center(child: Text('Todo'))
-  ];
+  List<Widget> _pages = [HistoryPage(), HomePage(), Center(child: Text('Todo'))];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

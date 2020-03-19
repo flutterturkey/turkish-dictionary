@@ -13,25 +13,18 @@ class AppWidget {
       backgroundColor: AppConstant.colorPageBg,
 
       textTheme: TextTheme(
-        display1: TextStyle(
-            fontSize: AppConstant.fontSizeDisplay, fontWeight: FontWeight.bold),
-        headline: TextStyle(
-            fontSize: AppConstant.fontSizeHeadline,
-            fontWeight: FontWeight.bold),
-        title: TextStyle(
-            fontSize: AppConstant.fontSizeTitle, fontWeight: FontWeight.bold),
+        display1: TextStyle(fontSize: AppConstant.fontSizeDisplay, fontWeight: FontWeight.bold),
+        headline: TextStyle(fontSize: AppConstant.fontSizeHeadline, fontWeight: FontWeight.bold),
+        title: TextStyle(fontSize: AppConstant.fontSizeTitle, fontWeight: FontWeight.bold),
         body1: TextStyle(fontSize: AppConstant.fontSizeBody),
-        body2: TextStyle(
-            fontSize: AppConstant.fontSizeBody2, fontWeight: FontWeight.bold),
-        caption: TextStyle(
-            fontSize: AppConstant.fontSizeCaption, fontWeight: FontWeight.bold),
+        body2: TextStyle(fontSize: AppConstant.fontSizeBody2, fontWeight: FontWeight.bold),
+        caption: TextStyle(fontSize: AppConstant.fontSizeCaption, fontWeight: FontWeight.bold),
       ),
       appBarTheme: AppBarTheme(brightness: Brightness.light),
     );
   }
 
-  static Widget getSearchBox(isKeyboardVisible, context,
-      {FocusNode focusNode}) {
+  static Widget getSearchBox(isKeyboardVisible, context, {FocusNode focusNode}) {
     TextEditingController _searchController = TextEditingController();
     return Row(
       children: <Widget>[
@@ -41,22 +34,15 @@ class AppWidget {
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(
-                    color: isKeyboardVisible
-                        ? Color(0xFFF3A5B1)
-                        : Colors.transparent),
+                border: Border.all(color: isKeyboardVisible ? Color(0xFFF3A5B1) : Colors.transparent),
                 boxShadow: [
                   !isKeyboardVisible
-                      ? BoxShadow(
-                          color: Colors.grey.withOpacity(0.1),
-                          blurRadius: 5.0,
-                          offset: Offset(0, 10))
+                      ? BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 5.0, offset: Offset(0, 10))
                       : BoxShadow(color: Colors.transparent)
                 ]),
             margin: const EdgeInsets.symmetric(horizontal: 0),
             child: Theme(
-              data:
-                  AppWidget.getThemeData().copyWith(primaryColor: Colors.grey),
+              data: AppWidget.getThemeData().copyWith(primaryColor: Colors.grey),
               child: Row(
                 children: <Widget>[
                   Expanded(
@@ -65,8 +51,7 @@ class AppWidget {
                       controller: _searchController,
                       decoration: InputDecoration(
                         hintText: 'Türkçe Sözlükte Ara...',
-                        hintStyle: TextStyle(
-                            fontSize: 14, color: AppConstant.colorBackButton),
+                        hintStyle: TextStyle(fontSize: 14, color: AppConstant.colorBackButton),
                         //
                         filled: true,
                         fillColor: Colors.white,
@@ -105,7 +90,7 @@ class AppWidget {
                         ),
                       ),
                     ),
-                    ),
+                  ),
 /* 
                   AnimatedOpacity(
                     opacity: !isKeyboardVisible ? 0.0 : 1.0,
