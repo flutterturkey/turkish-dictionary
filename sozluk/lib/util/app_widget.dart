@@ -30,7 +30,8 @@ class AppWidget {
     );
   }
 
-  static Widget getSearchBox(isKeyboardVisible, context) {
+  static Widget getSearchBox(isKeyboardVisible, context,
+      {FocusNode focusNode}) {
     TextEditingController _searchController = TextEditingController();
     return Row(
       children: <Widget>[
@@ -58,8 +59,9 @@ class AppWidget {
                   AppWidget.getThemeData().copyWith(primaryColor: Colors.grey),
               child: Row(
                 children: <Widget>[
-                  Flexible(
+                  Expanded(
                     child: TextFormField(
+                      focusNode: focusNode,
                       controller: _searchController,
                       decoration: InputDecoration(
                         hintText: 'Türkçe Sözlükte Ara...',
@@ -75,6 +77,18 @@ class AppWidget {
                             color: AppConstant.colorBackButton,
                           ),
                         ),
+                        suffixIcon: isKeyboardVisible
+                            ? IconButton(
+                                icon: Icon(
+                                  Icons.close,
+                                  color: AppConstant.colorBackButton,
+                                  size: 20,
+                                ),
+                                onPressed: () {
+                                  _searchController.text = "";
+                                },
+                              )
+                            : null,
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: BorderSide(
@@ -91,47 +105,35 @@ class AppWidget {
                         ),
                       ),
                     ),
-                  ),
-                  isKeyboardVisible
-                      ? IconButton(
-                          icon: Icon(
-                            Icons.close,
-                            color: AppConstant.colorBackButton,
-                            size: 20,
-                          ),
-                          onPressed: () {
-                            _searchController.text = "";
-                          },
-                        )
-                      : Container()
+                    ),
+/* 
+                  AnimatedOpacity(
+                    opacity: !isKeyboardVisible ? 0.0 : 1.0,
+                    duration: Duration(milliseconds: 1000),
+                    child: Container(
+
+                      margin: EdgeInsets.only(left: 16),
+                      child: InkWell(
+                        onTap: () {
+                          FocusScope.of(context).requestFocus(FocusNode());
+                        },
+                        child: Container(
+                            padding: EdgeInsets.only(
+                                top: 12, bottom: 12, right: 4, left: 4),
+                            child: Text(
+                              "Vazgeç",
+                              style: TextStyle(
+                                  color: AppConstant.colorHeading,
+                                  fontWeight: FontWeight.w500),
+                            )),
+                      ),
+                    ),
+                  ), */
                 ],
               ),
             ),
           ),
         ),
-        isKeyboardVisible
-            ? AnimatedOpacity(
-                opacity: !isKeyboardVisible ? 0.0 : 1.0,
-                duration: Duration(milliseconds: 1000),
-                child: Container(
-                  margin: EdgeInsets.only(right: 16),
-                  child: InkWell(
-                    onTap: () {
-                      FocusScope.of(context).requestFocus(FocusNode());
-                    },
-                    child: Container(
-                        padding: EdgeInsets.only(
-                            top: 12, bottom: 12, right: 4, left: 4),
-                        child: Text(
-                          "Vazgeç",
-                          style: TextStyle(
-                              color: AppConstant.colorHeading,
-                              fontWeight: FontWeight.w500),
-                        )),
-                  ),
-                ),
-              )
-            : Container()
       ],
     );
   }

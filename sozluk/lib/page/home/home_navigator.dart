@@ -15,7 +15,7 @@ class _HomeNavigatorState extends State<HomeNavigator> {
   List<Widget> _pages = [
     HistoryPage(),
     HomePage(),
-    Center(child: Text('Todo3'))
+    Center(child: Text('Todo'))
   ];
   @override
   Widget build(BuildContext context) {
