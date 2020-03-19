@@ -109,13 +109,10 @@ class AppWidget {
                       FocusScope.of(context).requestFocus(FocusNode());
                     },
                     child: Container(
-                        padding: EdgeInsets.only(
-                            top: 12, bottom: 12, right: 4, left: 4),
+                        padding: EdgeInsets.only(top: 12, bottom: 12, right: 4, left: 4),
                         child: Text(
                           "Vazgeç",
-                          style: TextStyle(
-                              color: AppConstant.colorHeading,
-                              fontWeight: FontWeight.w500),
+                          style: TextStyle(color: AppConstant.colorHeading, fontWeight: FontWeight.w500),
                         )),
                   ),
                 ),
