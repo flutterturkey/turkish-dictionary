@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sozluk/page/home_page.dart';
+import 'package:sozluk/page/home/home_navigator.dart';
 import 'package:sozluk/page/splash_page.dart';
 import 'package:sozluk/util/app_constant.dart';
 
@@ -20,7 +20,7 @@ class _SozlukState extends State<Sozluk> {
       initialRoute: AppConstant.pageSplash,
       routes: {
         AppConstant.pageSplash: (context) => SplashPage(),
-        AppConstant.pageHome: (context) => HomePage(),
+        AppConstant.pageHome: (context) => HomeNavigator(),
       },
     );
   }
