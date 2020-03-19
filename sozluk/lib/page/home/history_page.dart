@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sozluk/page/word_detail_page.dart';
-import '../util/app_constant.dart';
+import 'package:sozluk/util/app_constant.dart';
 
 class HistoryPage extends StatefulWidget {
   @override

@@ -1,14 +1,10 @@
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sozluk/page/history_page.dart';
-import 'package:sozluk/page/word_detail_page.dart';
 import 'package:sozluk/util/app_constant.dart';
+import 'package:sozluk/util/app_widget.dart';
 import 'package:sozluk/util/fade_animation.dart';
-import '../util/app_constant.dart';
-import '../util/app_widget.dart';
-import '../widget/idiom_card.dart';
+import 'package:sozluk/widget/idiom_card.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -18,7 +14,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _currentTab = 1;
   var size;
   bool isKeyboardVisible = false;
 
@@ -34,23 +29,51 @@ class _HomePageState extends State<HomePage> {
               isKeyboardVisible ? Brightness.dark : Brightness.light),
       child: Scaffold(
         backgroundColor: AppConstant.colorPageBg,
-        body: _currentTab == 0
-            ? HistoryPage()
-            : _currentTab == 1
-                ? _body()
-                : Center(
-                    child: Text('Todo'),
+        body: Center(
+          child: Stack(
+            children: <Widget>[
+              _pageBody,
+              AnimatedPositioned(
+                duration: Duration(milliseconds: 220),
+                top: !isKeyboardVisible ? size.height * .35 - 26 : 40,
+                left: 0,
+                right: 0,
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 16),
+                  child: Material(
+                    borderRadius: BorderRadius.circular(8),
+                    elevation: 4,
+                    shadowColor: Colors.black26,
+                    child: AppWidget.getSearchBox(isKeyboardVisible, context),
                   ),
-        bottomNavigationBar: _bottomNavigationBar,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 25, 10, 0),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    isKeyboardVisible
+                        ? Container()
+                        : IconButton(
+                            icon: Icon(
+                              Icons.more_horiz,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              _onDrawerButtonPressed();
+                            },
+                          )
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
-
-  Widget _body() => Center(
-        child: Stack(
-          children: <Widget>[_pageBody, _searchBar, _drawerButton],
-        ),
-      );
 
   Widget buildSearchBody() {
     List<String> vowels = ['ç', 'ğ', 'ı', 'ö', 'ş', 'ü', 'â', 'î', 'û'];
@@ -89,29 +112,6 @@ class _HomePageState extends State<HomePage> {
           ),
         ));
   }
-
-  Widget get _bottomNavigationBar => ConvexAppBar(
-        color: AppConstant.colorParagraph2,
-        backgroundColor: Colors.white,
-        activeColor: AppConstant.colorPrimary,
-        elevation: 0.5,
-
-        //height causes layout overflow on some devies
-        //height: 56,
-        onTap: (int val) {
-          if (val == _currentTab) return;
-          setState(() {
-            _currentTab = val;
-          });
-        },
-        initialActiveIndex: _currentTab,
-        style: TabStyle.fixedCircle,
-        items: <TabItem>[
-          TabItem(icon: Icons.history, title: ''),
-          TabItem(icon: Icons.search, title: ''),
-          TabItem(icon: Icons.bookmark_border, title: ''),
-        ],
-      );
 
   Widget get _pageBody => Column(
         children: <Widget>[
@@ -214,43 +214,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
-      );
-
-  Widget get _searchBar => AnimatedPositioned(
-        duration: Duration(milliseconds: 220),
-        top: !isKeyboardVisible ? size.height * .35 - 26 : 40,
-        left: 0,
-        right: 0,
-        child: Container(
-          margin: EdgeInsets.symmetric(horizontal: 16),
-          child: Material(
-            borderRadius: BorderRadius.circular(8),
-            elevation: 4,
-            shadowColor: Colors.black26,
-            child: AppWidget.getSearchBox(isKeyboardVisible, context),
-          ),
-        ),
-      );
-
-  Widget get _drawerButton => Padding(
-        padding: const EdgeInsets.fromLTRB(0, 25, 10, 0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            isKeyboardVisible
-                ? Container()
-                : IconButton(
-                    icon: Icon(
-                      Icons.more_horiz,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {
-                      _onDrawerButtonPressed();
-                    },
-                  )
-          ],
-        ),
       );
 
   Widget _tdkCover(double scale) => Container(
