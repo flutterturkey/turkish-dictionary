@@ -44,6 +44,7 @@ class _HistoryPageState extends State<HistoryPage> {
             },
           )
         ],
+        brightness: Brightness.light,
       ),
       body: Column(
         children: <Widget>[
@@ -86,9 +87,7 @@ class _HistoryPageState extends State<HistoryPage> {
           ),
           Text(
             'Henüz geçmiş yok',
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: AppConstant.colorParagraph2),
+            style: TextStyle(fontWeight: FontWeight.bold, color: AppConstant.colorParagraph2),
           ),
         ],
       ),
@@ -106,13 +105,7 @@ class _HistoryPageState extends State<HistoryPage> {
                 _selectedCategory = page;
               });
             },
-            children: <Widget>[
-              _words(),
-              _idioms(),
-              _lorem(),
-              _ipsum(),
-              _dolor()
-            ],
+            children: <Widget>[_words(), _idioms(), _lorem(), _ipsum(), _dolor()],
           ),
         ),
       ],
@@ -131,10 +124,7 @@ class _HistoryPageState extends State<HistoryPage> {
 
   Widget _idioms() {
     return Column(
-      children: <Widget>[
-        _historyItem(title: 'Kalemiyle yaşamak veya geçinmek'),
-        _historyItem(title: 'Kalemine dolamak')
-      ],
+      children: <Widget>[_historyItem(title: 'Kalemiyle yaşamak veya geçinmek'), _historyItem(title: 'Kalemine dolamak')],
     );
   }
 
@@ -169,8 +159,7 @@ class _HistoryPageState extends State<HistoryPage> {
           _selectedCategory = id;
         });
 
-        _pageController.animateToPage(id,
-            duration: Duration(milliseconds: 300), curve: Curves.ease);
+        _pageController.animateToPage(id, duration: Duration(milliseconds: 300), curve: Curves.ease);
       },
       borderRadius: BorderRadius.circular(16),
       child: Padding(
@@ -182,9 +171,7 @@ class _HistoryPageState extends State<HistoryPage> {
             Text('$title',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontWeight: _selectedCategory == id
-                      ? FontWeight.bold
-                      : FontWeight.normal,
+                  fontWeight: _selectedCategory == id ? FontWeight.bold : FontWeight.normal,
                 )),
             SizedBox(
               height: 4,
@@ -193,8 +180,7 @@ class _HistoryPageState extends State<HistoryPage> {
               duration: Duration(milliseconds: 300),
               height: 2,
               width: _selectedCategory == id ? title.length * 4.5 : 0,
-              decoration: BoxDecoration(
-                  color: Colors.red, borderRadius: BorderRadius.circular(4)),
+              decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(4)),
             ),
           ],
         ),
@@ -213,8 +199,7 @@ class _HistoryPageState extends State<HistoryPage> {
         child: InkWell(
           borderRadius: BorderRadius.circular(6),
           onTap: () {
-            Navigator.push(context,
-                CupertinoPageRoute(builder: (context) => WordDetailPage()));
+            Navigator.push(context, CupertinoPageRoute(builder: (context) => WordDetailPage()));
           },
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
@@ -225,10 +210,7 @@ class _HistoryPageState extends State<HistoryPage> {
               children: <Widget>[
                 Text(
                   '$title',
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
                 ),
                 Icon(
                   Icons.arrow_forward_ios,
