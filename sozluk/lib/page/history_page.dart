@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../util/app_constant.dart';
-import '../util/app_constant.dart';
 
 class HistoryPage extends StatefulWidget {
   @override
@@ -32,7 +31,10 @@ class _HistoryPageState extends State<HistoryPage> {
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.clear, color: AppConstant.colorHeading,),
+            icon: Icon(
+              Icons.clear,
+              color: AppConstant.colorHeading,
+            ),
             onPressed: () {
               setState(() {
                 isEmpty = !isEmpty;
