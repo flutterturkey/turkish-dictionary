@@ -1,9 +1,10 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sozluk/page/history_page.dart';
 import 'package:sozluk/util/app_constant.dart';
-
+import 'package:sozluk/util/fade_animation.dart';
 import '../util/app_constant.dart';
 import '../util/app_widget.dart';
 import '../widget/idiom_card.dart';
@@ -18,21 +19,29 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _currentTab = 1;
   var size;
+  bool isKeyboardVisible = false;
 
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
+    isKeyboardVisible = MediaQuery.of(context).viewInsets.vertical > 0;
 
-    return Scaffold(
-      backgroundColor: AppConstant.colorPageBg,
-      body: _currentTab == 0
-          ? HistoryPage()
-          : _currentTab == 1
-              ? _body()
-              : Center(
-                  child: Text('Todo'),
-                ),
-      bottomNavigationBar: _bottomNavigationBar,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness:
+              isKeyboardVisible ? Brightness.dark : Brightness.light),
+      child: Scaffold(
+        backgroundColor: AppConstant.colorPageBg,
+        body: _currentTab == 0
+            ? HistoryPage()
+            : _currentTab == 1
+                ? _body()
+                : Center(
+                    child: Text('Todo'),
+                  ),
+        bottomNavigationBar: _bottomNavigationBar,
+      ),
     );
   }
 
@@ -41,6 +50,44 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[_pageBody, _searchBar, _drawerButton],
         ),
       );
+
+  Widget buildSearchBody() {
+    List<String> vowels = ['ç', 'ğ', 'ı', 'ö', 'ş', 'ü', 'â', 'î', 'û'];
+    return FadeAnimation(
+      0.3,Container(
+      child: Column(
+        children: <Widget>[
+          SizedBox(
+            height: 48,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: false,
+              itemCount: 9,
+              itemBuilder: (BuildContext ctx, int index) => Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(right: 16, left: 16),
+                    child: Text(
+                      vowels[index],
+                      style: Theme.of(context)
+                          .textTheme
+                          .body2
+                          .copyWith(letterSpacing: 0.2),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Text("Search results.."),
+          Text("Search results.."),
+          Text("Search results.."),
+        ],
+      ),
+    )
+    );
+  }
 
   Widget get _bottomNavigationBar => ConvexAppBar(
         color: AppConstant.colorParagraph2,
@@ -67,104 +114,113 @@ class _HomePageState extends State<HomePage> {
 
   Widget get _pageBody => Column(
         children: <Widget>[
-          _tdkCover(0.35),
+          AnimatedOpacity(
+              opacity: isKeyboardVisible ? 0.0 : 1,
+              duration: Duration(milliseconds: 220),
+              child: _tdkCover(0.35)),
           Expanded(
             child: SingleChildScrollView(
               padding:
                   EdgeInsets.only(left: 16, right: 16, top: 48, bottom: 32),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Text(
-                        'Bir Deyim',
-                        style: TextStyle(
-                            color: AppConstant.colorProverbsIdiomsText),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 8),
-                  IdiomCard(title: 'on para', content: 'çok az (para).'),
-                  SizedBox(height: 24),
-                  Row(
-                    children: <Widget>[
-                      Text(
-                        'Bir Atasözü',
-                        style: TextStyle(
-                            color: AppConstant.colorProverbsIdiomsText),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 8),
-                  IdiomCard(
-                      title: 'siyem siyem ağlamak',
-                      content:
-                          'hafif hafif, ince ince, durmadan gözyaşı dökmek.'),
-                  SizedBox(height: 24),
-                  Row(
-                    children: <Widget>[
-                      Text(
-                        'Bir Kelime',
-                        style: TextStyle(
-                            color: AppConstant.colorProverbsIdiomsText),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 8),
-                  IdiomCard(
-                      title: 'Kalem',
-                      content:
-                          'Yazma, çizme vb. işlerde kullanılan çeşitli biçimlerde araç.'),
-                  SizedBox(height: 24),
-                  Row(
-                    children: <Widget>[
-                      Text(
-                        'Bir Kelime',
-                        style: TextStyle(
-                            color: AppConstant.colorProverbsIdiomsText),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 8),
-                  IdiomCard(
-                      title: 'Kalem',
-                      content:
-                          'Yazma, çizme vb. işlerde kullanılan çeşitli biçimlerde araç.'),
-                  SizedBox(height: 24),
-                  Row(
-                    children: <Widget>[
-                      Text(
-                        'Bir Kelime',
-                        style: TextStyle(
-                            color: AppConstant.colorProverbsIdiomsText),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 8),
-                  IdiomCard(
-                      title: 'Kalem',
-                      content:
-                          'Yazma, çizme vb. işlerde kullanılan çeşitli biçimlerde araç.'),
-                ],
-              ),
+              child: Padding(
+                  padding: !isKeyboardVisible
+                      ? EdgeInsets.only(top: 0.0)
+                      : EdgeInsets.only(top: 64.0),
+                  child: isKeyboardVisible
+                      ? buildSearchBody()
+                      : Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                Text(
+                                  'Bir Deyim',
+                                  style: TextStyle(
+                                      color:
+                                          AppConstant.colorProverbsIdiomsText),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 8),
+                            IdiomCard(
+                                title: 'on para', content: 'çok az (para).'),
+                            SizedBox(height: 24),
+                            Row(
+                              children: <Widget>[
+                                Text(
+                                  'Bir Atasözü',
+                                  style: TextStyle(
+                                      color:
+                                          AppConstant.colorProverbsIdiomsText),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 8),
+                            IdiomCard(
+                                title: 'siyem siyem ağlamak',
+                                content:
+                                    'hafif hafif, ince ince, durmadan gözyaşı dökmek.'),
+                            SizedBox(height: 24),
+                            Row(
+                              children: <Widget>[
+                                Text(
+                                  'Bir Kelime',
+                                  style: TextStyle(
+                                      color:
+                                          AppConstant.colorProverbsIdiomsText),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 8),
+                            IdiomCard(
+                                title: 'Kalem',
+                                content:
+                                    'Yazma, çizme vb. işlerde kullanılan çeşitli biçimlerde araç.'),
+                            SizedBox(height: 24),
+                            Row(
+                              children: <Widget>[
+                                Text(
+                                  'Bir Kelime',
+                                  style: TextStyle(
+                                      color:
+                                          AppConstant.colorProverbsIdiomsText),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 8),
+                            IdiomCard(
+                                title: 'Kalem',
+                                content:
+                                    'Yazma, çizme vb. işlerde kullanılan çeşitli biçimlerde araç.'),
+                            SizedBox(height: 24),
+                            Row(
+                              children: <Widget>[
+                                Text(
+                                  'Bir Kelime',
+                                  style: TextStyle(
+                                      color:
+                                          AppConstant.colorProverbsIdiomsText),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 8),
+                            IdiomCard(
+                                title: 'Kalem',
+                                content:
+                                    'Yazma, çizme vb. işlerde kullanılan çeşitli biçimlerde araç.'),
+                          ],
+                        )),
             ),
           ),
         ],
       );
 
-  Widget get _searchBar => Positioned(
-        top: size.height * .35 - 32,
+  Widget get _searchBar => AnimatedPositioned(
+        duration: Duration(milliseconds: 220),
+        top: !isKeyboardVisible ? size.height * .35 - 26 : 40,
         left: 0,
         right: 0,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Material(
-            elevation: 4,
-            borderRadius: BorderRadius.circular(8),
-            child: AppWidget.getSearchBox(),
-          ),
-        ),
+        child: AppWidget.getSearchBox(isKeyboardVisible, context),
       );
 
   Widget get _drawerButton => Padding(
@@ -173,21 +229,23 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.more_horiz,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                _onDrawerButtonPressed();
-              },
-            )
+            isKeyboardVisible
+                ? Container()
+                : IconButton(
+                    icon: Icon(
+                      Icons.more_horiz,
+                      color: Colors.white,
+                    ),
+                    onPressed: () {
+                      _onDrawerButtonPressed();
+                    },
+                  )
           ],
         ),
       );
 
   Widget _tdkCover(double scale) => Container(
-        height: size.height * scale,
+        height: !isKeyboardVisible ? size.height * scale : 0,
         width: double.infinity,
         decoration: BoxDecoration(
           color: Colors.transparent,
