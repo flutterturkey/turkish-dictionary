@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sozluk/page/word_detail_page.dart';
 import '../util/app_constant.dart';
 
 class HistoryPage extends StatefulWidget {
@@ -210,7 +212,10 @@ class _HistoryPageState extends State<HistoryPage> {
         borderRadius: BorderRadius.circular(6),
         child: InkWell(
           borderRadius: BorderRadius.circular(6),
-          onTap: () {},
+          onTap: () {
+            Navigator.push(context,
+                CupertinoPageRoute(builder: (context) => WordDetailPage()));
+          },
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 20, horizontal: 16),
             width: double.infinity,

@@ -52,7 +52,7 @@ class AppWidget {
                           offset: Offset(0, 10))
                       : BoxShadow(color: Colors.transparent)
                 ]),
-            margin: const EdgeInsets.symmetric(horizontal: 16),
+            margin: const EdgeInsets.symmetric(horizontal: 0),
             child: Theme(
               data:
                   AppWidget.getThemeData().copyWith(primaryColor: Colors.grey),

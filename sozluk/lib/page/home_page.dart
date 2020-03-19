@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sozluk/page/history_page.dart';
+import 'package:sozluk/page/word_detail_page.dart';
 import 'package:sozluk/util/app_constant.dart';
 import 'package:sozluk/util/fade_animation.dart';
 import '../util/app_constant.dart';
@@ -54,39 +55,39 @@ class _HomePageState extends State<HomePage> {
   Widget buildSearchBody() {
     List<String> vowels = ['ç', 'ğ', 'ı', 'ö', 'ş', 'ü', 'â', 'î', 'û'];
     return FadeAnimation(
-      0.3,Container(
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-            height: 48,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: false,
-              itemCount: 9,
-              itemBuilder: (BuildContext ctx, int index) => Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(right: 16, left: 16),
-                    child: Text(
-                      vowels[index],
-                      style: Theme.of(context)
-                          .textTheme
-                          .body2
-                          .copyWith(letterSpacing: 0.2),
-                    ),
+        0.3,
+        Container(
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: 48,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: false,
+                  itemCount: 9,
+                  itemBuilder: (BuildContext ctx, int index) => Row(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(right: 16, left: 16),
+                        child: Text(
+                          vowels[index],
+                          style: Theme.of(context)
+                              .textTheme
+                              .body2
+                              .copyWith(letterSpacing: 0.2),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ),
+              Text("Search results.."),
+              Text("Search results.."),
+              Text("Search results.."),
+            ],
           ),
-          Text("Search results.."),
-          Text("Search results.."),
-          Text("Search results.."),
-        ],
-      ),
-    )
-    );
+        ));
   }
 
   Widget get _bottomNavigationBar => ConvexAppBar(
@@ -220,7 +221,15 @@ class _HomePageState extends State<HomePage> {
         top: !isKeyboardVisible ? size.height * .35 - 26 : 40,
         left: 0,
         right: 0,
-        child: AppWidget.getSearchBox(isKeyboardVisible, context),
+        child: Container(
+          margin: EdgeInsets.symmetric(horizontal: 16),
+          child: Material(
+            borderRadius: BorderRadius.circular(8),
+            elevation: 4,
+            shadowColor: Colors.black26,
+            child: AppWidget.getSearchBox(isKeyboardVisible, context),
+          ),
+        ),
       );
 
   Widget get _drawerButton => Padding(
