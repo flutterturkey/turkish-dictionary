@@ -5,6 +5,7 @@ import 'package:sozluk/util/app_constant.dart';
 import 'package:sozluk/util/app_widget.dart';
 import 'package:sozluk/util/fade_animation.dart';
 import 'package:sozluk/widget/idiom_card.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -16,6 +17,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   var size;
   bool isKeyboardVisible = false;
+  PageController _pageController = PageController(initialPage: 0);
+  int _selectedCategory = 0;
 
   FocusNode _searchFn = FocusNode();
 
@@ -123,8 +126,7 @@ class _HomePageState extends State<HomePage> {
             top: !isKeyboardVisible ? size.height * .35 - 26 : 40,
             left: 0,
             right: 0,
-            child: AppWidget.getSearchBox(isKeyboardVisible, context,
-                focusNode: _searchFn),
+            child: AppWidget.getSearchBox(isKeyboardVisible, context, focusNode: _searchFn),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 25, 10, 0),
@@ -215,6 +217,38 @@ class _HomePageState extends State<HomePage> {
         ),
       );
 
+  Widget _itemTopMenu(String heading) => Padding(
+        padding: const EdgeInsets.only(top: 32.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            new RawMaterialButton(
+              onPressed: () {
+                Navigator.pop(context);
+                _onDrawerButtonPressed();
+              },
+              child: new Icon(
+                Icons.arrow_back_ios,
+                color: AppConstant.colorBackButton,
+                size: 13.0,
+              ),
+              shape: new CircleBorder(),
+              elevation: 0,
+              fillColor: AppConstant.colorDrawerButton,
+              padding: const EdgeInsets.all(15.0),
+            ),
+            Spacer(),
+            Text(
+              heading,
+              style: TextStyle(fontSize: 14, color: AppConstant.colorHeading, fontWeight: FontWeight.w500),
+            ),
+            Spacer(),
+            Spacer(),
+          ],
+        ),
+      );
+
   Widget get _buildDrawerItem => Column(
         children: <Widget>[
           Stack(
@@ -293,37 +327,7 @@ class _HomePageState extends State<HomePage> {
   Widget get _buildHakkindaItem => Column(
         children: <Widget>[
           _pullDown(AppConstant.colorPullDown2),
-          Padding(
-            padding: const EdgeInsets.only(top: 32.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                new RawMaterialButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    _onDrawerButtonPressed();
-                  },
-                  child: new Icon(
-                    Icons.arrow_back_ios,
-                    color: AppConstant.colorBackButton,
-                    size: 13.0,
-                  ),
-                  shape: new CircleBorder(),
-                  elevation: 0,
-                  fillColor: AppConstant.colorDrawerButton,
-                  padding: const EdgeInsets.all(15.0),
-                ),
-                Spacer(),
-                Text(
-                  AppConstant.hakkinda,
-                  style: TextStyle(fontSize: 14, color: AppConstant.colorHeading, fontWeight: FontWeight.w500),
-                ),
-                Spacer(),
-                Spacer(),
-              ],
-            ),
-          ),
+          _itemTopMenu(AppConstant.hakkinda),
           Padding(
             padding: const EdgeInsets.only(top: 50.0),
             child: Center(
@@ -355,26 +359,224 @@ class _HomePageState extends State<HomePage> {
         ],
       );
 
+  Widget get _buildIletisimItem => Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _pullDown(AppConstant.colorPullDown2),
+          _itemTopMenu(AppConstant.iletisimBilgileri),
+          Padding(
+            padding: const EdgeInsets.only(top: 32.0),
+            child: _sectionItem(AppConstant.appDescription, AppConstant.address),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 32),
+            child: _phoneRow(Icons.print),
+          ),
+          Padding(padding: const EdgeInsets.only(left: 32), child: _btnEpostaYaz),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 24, 16, 22),
+            child: Divider(color: AppConstant.colorBottomSheetDivider, thickness: 1),
+          ),
+          _sectionItem(AppConstant.magaza, AppConstant.magazaAddress),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(32, 24, 0, 0),
+            child: MaterialButton(
+              minWidth: 314,
+              height: 48,
+              elevation: 0,
+              color: AppConstant.colorDrawerButton,
+              shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(8)),
+              child: Text(
+                AppConstant.eMagaza,
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppConstant.colorHeading),
+              ),
+              onPressed: _launchURL,
+            ),
+          ),
+        ],
+      );
+
+  Widget _sectionItem(String header, String address) => Padding(
+        padding: const EdgeInsets.fromLTRB(32, 0, 32, 0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              header,
+              style: TextStyle(
+                color: AppConstant.colorBottomSheetItemHeader,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0, bottom: 10),
+              child: Text(address, style: _bottomSheetTextStyleF14W500),
+            ),
+            _phoneRow(Icons.phone),
+          ],
+        ),
+      );
+
+  Widget _phoneRow(IconData icon) => Row(
+        children: <Widget>[
+          Icon(icon, size: 15, color: AppConstant.colorPrimary),
+          FlatButton(
+            onPressed: _callPhone,
+            child: Text(AppConstant.phoneNumber),
+          ),
+        ],
+      );
+
+  _callPhone() async {
+    final String phone = 'tel:+903124575200';
+    if (await canLaunch(phone)) {
+      await launch(phone);
+    } else {
+      throw 'Arama Yapılamadı';
+    }
+  }
+
+  _launchURL() async {
+    final String url = 'http:http://tdk.gov.tr/';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Web Sitesi Açılamadı';
+    }
+  }
+
+  _sendMail() async {
+    final String mail = 'mailto:bilgi@tdk.gov.tr';
+    if (await canLaunch(mail)) {
+      await launch(mail);
+    } else {
+      throw 'Mail Gönderilmedi';
+    }
+  }
+
+  Widget get _btnEpostaYaz => MaterialButton(
+        minWidth: 152,
+        height: 48,
+        elevation: 0,
+        color: AppConstant.colorDrawerButton,
+        shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(8)),
+        child: Text(
+          AppConstant.epostayaz,
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppConstant.colorHeading),
+        ),
+        onPressed: _sendMail,
+      );
+
+  Widget get _buildKatkiItem => Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          _pullDown(AppConstant.colorPullDown2),
+          _itemTopMenu(AppConstant.katkioneri),
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                SvgPicture.asset(
+                  AppConstant.svgMessage,
+                  height: 40,
+                ),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(32, 30, 32, 24),
+                  child: Text(AppConstant.katkiOneriDetails, style: _bottomSheetTextStyleF14W500),
+                ),
+                _btnEpostaYaz
+              ],
+            ),
+          )
+        ],
+      );
+
+  Widget get _renderItem => Column(
+        children: <Widget>[
+          Expanded(
+            child: PageView(
+              controller: _pageController,
+              onPageChanged: (int page) {
+                setState(() {
+                  _selectedCategory = page;
+                });
+              },
+              children: <Widget>[_buildIletisimItem, _buildKatkiItem],
+            ),
+          ),
+          _selectCategory
+        ],
+      );
+
+  Widget get _selectCategory => SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        scrollDirection: Axis.horizontal,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            _horizontalCategoryItem(id: 0, title: AppConstant.iletisim),
+            _horizontalCategoryItem(id: 1, title: AppConstant.katkioneri),
+          ],
+        ),
+      );
+
+  Widget _horizontalCategoryItem({@required int id, @required String title}) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          _selectedCategory = id;
+        });
+        _pageController.animateToPage(id, duration: Duration(milliseconds: 300), curve: Curves.ease);
+      },
+      borderRadius: BorderRadius.circular(16),
+      child: Container(
+        color: AppConstant.colorPageBg,
+        height: MediaQuery.of(context).size.height * .07,
+        width: MediaQuery.of(context).size.width / 2,
+        child: Padding(
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 4),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text('$title',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: _selectedCategory == id ? FontWeight.bold : FontWeight.normal,
+                  )),
+              SizedBox(
+                height: 4,
+              ),
+              AnimatedContainer(
+                duration: Duration(milliseconds: 300),
+                height: 2,
+                width: _selectedCategory == id ? title.length * 4.5 : 0,
+                decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(4)),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   void _onDrawerButtonPressed() {
     try {
       FocusScope.of(context).unfocus();
     } catch (e) {}
     showModalBottomSheet(
         context: context,
+        backgroundColor: Colors.transparent,
         builder: (context) {
           return Container(
-            color: Colors.transparent,
-            height: MediaQuery.of(context).size.height * .4,
-            child: Container(
-              child: _buildDrawerItem,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: new BorderRadius.only(
-                  topLeft: const Radius.circular(10),
-                  topRight: const Radius.circular(10),
-                ),
-              ),
-            ),
+            height: MediaQuery.of(context).size.height * .5,
+            child: Container(child: _buildDrawerItem, decoration: _bottomSheetBoxDecoration),
           );
         });
   }
@@ -383,43 +585,36 @@ class _HomePageState extends State<HomePage> {
     Navigator.pop(context);
     showModalBottomSheet(
         context: context,
+        backgroundColor: Colors.transparent,
         builder: (context) {
           return Container(
-            color: Colors.transparent,
-            height: 410,
-            child: Container(
-              child: _buildHakkindaItem,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: new BorderRadius.only(
-                  topLeft: const Radius.circular(10),
-                  topRight: const Radius.circular(10),
-                ),
-              ),
-            ),
+            height: MediaQuery.of(context).size.height * .5,
+            child: Container(child: _buildHakkindaItem, decoration: _bottomSheetBoxDecoration),
           );
         });
   }
 
   void _onIletisimButtonPressed() {
     Navigator.pop(context);
-    showModalBottomSheet(
+    showModalBottomSheet<dynamic>(
         context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
         builder: (context) {
           return Container(
-            color: Colors.transparent,
-            height: 410,
-            child: Container(
-              child: _buildDrawerItem,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: new BorderRadius.only(
-                  topLeft: const Radius.circular(10),
-                  topRight: const Radius.circular(10),
-                ),
-              ),
-            ),
+            height: MediaQuery.of(context).size.height * .9,
+            child: Container(child: _renderItem, decoration: _bottomSheetBoxDecoration),
           );
         });
   }
+
+  static BoxDecoration get _bottomSheetBoxDecoration => BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: const Radius.circular(15.0),
+          topRight: const Radius.circular(15.0),
+        ),
+      );
+
+  static TextStyle get _bottomSheetTextStyleF14W500 => TextStyle(color: AppConstant.colorParagraph2, fontSize: 14, fontWeight: FontWeight.w500);
 }
