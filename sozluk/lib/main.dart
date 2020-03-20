@@ -6,15 +6,15 @@ import 'package:sozluk/util/app_constant.dart';
 
 void main() => runApp(Sozluk());
 
-class Sozluk extends StatefulWidget {
-  @override
-  _SozlukState createState() => _SozlukState();
-}
-
-class _SozlukState extends State<Sozluk> {
+class Sozluk extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+      ),
+    );
+
     return MaterialApp(
       title: AppConstant.appName,
       initialRoute: AppConstant.pageSplash,
