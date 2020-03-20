@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:sozluk/util/app_constant.dart';
 import 'package:sozluk/util/app_widget.dart';
-import 'package:flutter/services.dart';
 
 class SearchPage extends StatefulWidget {
   SearchPage({Key key}) : super(key: key);
