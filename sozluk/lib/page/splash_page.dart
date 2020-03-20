@@ -10,12 +10,6 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  startTimeout() {
-    Future.delayed(Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, AppConstant.pageHome);
-    });
-  }
-
   @override
   void initState() {
     super.initState();
@@ -25,26 +19,46 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: DecoratedBox(
-            position: DecorationPosition.background,
-            decoration: BoxDecoration(
-              color: Colors.transparent,
-              image: DecorationImage(image: AssetImage('assets/bg.jpg'), fit: BoxFit.cover),
+      body: DecoratedBox(
+        position: DecorationPosition.background,
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          image: DecorationImage(
+            image: AssetImage('assets/bg.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+              top: 300,
+              left: 50,
+              right: 50,
+              child: SvgPicture.asset(
+                AppConstant.svgLogo,
+                height: 100,
+              ),
             ),
-            child: Stack(
-              children: <Widget>[
-                Positioned(
-                  top: 300,
-                  left: 50,
-                  right: 50,
-                  child: SvgPicture.asset(
-                    AppConstant.svgLogo,
-                    height: 100,
-                  ),
-                ),
-                Positioned(
-                    top: 650, left: 150, right: 150, child: Text(AppConstant.appName, style: Theme.of(context).textTheme.body2.copyWith(color: Colors.white))),
-              ],
-            )));
+            Positioned(
+              top: 650,
+              left: 150,
+              right: 150,
+              child: Text(
+                AppConstant.appName,
+                style: Theme.of(context).textTheme.body2.copyWith(
+                      color: Colors.white,
+                    ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  startTimeout() {
+    Future.delayed(Duration(seconds: 3), () {
+      Navigator.pushReplacementNamed(context, AppConstant.pageHome);
+    });
   }
 }
