@@ -5,11 +5,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sozluk/page/search_page.dart';
 import 'package:sozluk/util/app_constant.dart';
 import 'package:sozluk/util/system_overlay.dart';
+import 'package:sozluk/widget/homepage/home_page_list_view.dart';
+import 'package:sozluk/widget/homepage/search_box.dart';
 import 'package:sozluk/widget/homepage/tdk_cover.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import 'file:///C:/Users/alian/Desktop/FlutterProjects/turkish-dictionary/sozluk/lib/widget/homepage/home_page_list_view.dart';
-import 'file:///C:/Users/alian/Desktop/FlutterProjects/turkish-dictionary/sozluk/lib/widget/homepage/search_box.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
@@ -278,49 +277,53 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
-      );
+  );
 
-  Widget get _buildIletisimItem => Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          _pullDown(AppConstant.colorPullDown2),
-          _itemTopMenu(AppConstant.iletisimBilgileri),
-          Padding(
-            padding: const EdgeInsets.only(top: 32.0),
-            child: _sectionItem(AppConstant.appDescription, AppConstant.address),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 32),
-            child: _phoneRow(Icons.print),
-          ),
-          Padding(padding: const EdgeInsets.only(left: 32), child: _btnEpostaYaz),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 24, 16, 22),
-            child: Divider(color: AppConstant.colorBottomSheetDivider, thickness: 1),
-          ),
-          _sectionItem(AppConstant.magaza, AppConstant.magazaAddress),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(32, 24, 0, 0),
-            child: MaterialButton(
-              minWidth: 314,
-              height: 48,
-              elevation: 0,
-              color: AppConstant.colorDrawerButton,
-              shape: RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(8),
-              ),
-              child: Text(
-                AppConstant.eMagaza,
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppConstant.colorHeading),
-              ),
-              onPressed: _launchURL,
+  Widget get _buildIletisimItem =>
+      SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _pullDown(AppConstant.colorPullDown2),
+            _itemTopMenu(AppConstant.iletisimBilgileri),
+            Padding(
+              padding: const EdgeInsets.only(top: 32.0),
+              child: _sectionItem(AppConstant.appDescription, AppConstant.address),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.only(left: 32),
+              child: _phoneRow(Icons.print),
+            ),
+            Padding(padding: const EdgeInsets.only(left: 32), child: _btnEpostaYaz),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 24, 16, 22),
+              child: Divider(color: AppConstant.colorBottomSheetDivider, thickness: 1),
+            ),
+            _sectionItem(AppConstant.magaza, AppConstant.magazaAddress),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(32, 24, 0, 0),
+              child: MaterialButton(
+                minWidth: 314,
+                height: 48,
+                elevation: 0,
+                color: AppConstant.colorDrawerButton,
+                shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(8),
+                ),
+                child: Text(
+                  AppConstant.eMagaza,
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppConstant.colorHeading),
+                ),
+                onPressed: _launchURL,
+              ),
+            ),
+          ],
+        ),
       );
 
-  Widget _sectionItem(String header, String address) => Padding(
+  Widget _sectionItem(String header, String address) =>
+      Padding(
         padding: const EdgeInsets.fromLTRB(32, 0, 32, 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -380,20 +383,21 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Widget get _btnEpostaYaz => MaterialButton(
-    minWidth: 152,
-    height: 48,
-    elevation: 0,
-    color: AppConstant.colorDrawerButton,
-    shape: RoundedRectangleBorder(
-      borderRadius: new BorderRadius.circular(8),
-    ),
-    child: Text(
-      AppConstant.epostayaz,
-      style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppConstant.colorHeading),
-    ),
-    onPressed: _sendMail,
-  );
+  Widget get _btnEpostaYaz =>
+      MaterialButton(
+        minWidth: 152,
+        height: 48,
+        elevation: 0,
+        color: AppConstant.colorDrawerButton,
+        shape: RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(8),
+        ),
+        child: Text(
+          AppConstant.epostayaz,
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppConstant.colorHeading),
+        ),
+        onPressed: _sendMail,
+      );
 
   Widget get _buildKatkiItem => Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -455,7 +459,7 @@ class _HomePageState extends State<HomePage> {
     return InkWell(
       onTap: () {
         setState(() {
-          _selectedCategory = id;
+          _selectedCategory = 1;
         });
         _pageController.animateToPage(id, duration: Duration(milliseconds: 300), curve: Curves.ease);
       },
