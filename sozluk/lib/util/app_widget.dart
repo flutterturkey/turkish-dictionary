@@ -40,7 +40,7 @@ class AppWidget {
                 boxShadow: [
                   !isKeyboardVisible
                       ? BoxShadow(color: Colors.grey.withOpacity(0.1), blurRadius: 5.0, offset: Offset(0, 10))
-                      : BoxShadow(color: Colors.transparent)
+                      : BoxShadow(color: AppConstant.colorPrimary.withOpacity(0.1), offset: Offset(0, 0), blurRadius: 3, spreadRadius: 1)
                 ]),
             margin: const EdgeInsets.symmetric(horizontal: 16),
             child: Theme(
