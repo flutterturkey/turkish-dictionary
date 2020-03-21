@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sozluk/util/app_constant.dart';
 import 'package:sozluk/util/app_widget.dart';
 import 'package:sozluk/util/fade_animation.dart';
-import 'package:sozluk/widget/idiom_card.dart';
+import 'package:sozluk/widgets/idiom_card.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
