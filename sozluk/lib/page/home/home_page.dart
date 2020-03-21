@@ -487,7 +487,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(32, 30, 32, 24),
-                  child: Text(AppConstant.katkiOneriDetails, style: _bottomSheetTextStyleF14W500),
+                  child: Center(child: Text(AppConstant.katkiOneriDetails, style: _bottomSheetTextStyleF14W500)),
                 ),
                 _btnEpostaYaz
               ],
@@ -514,7 +514,6 @@ class _HomePageState extends State<HomePage> {
       );
 
   Widget get _selectCategory => SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         scrollDirection: Axis.horizontal,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -531,13 +530,16 @@ class _HomePageState extends State<HomePage> {
       onTap: () {
         setState(() {
           _selectedCategory = id;
+          //TEST
+          print(id);
+          print(_selectedCategory);
         });
-        _pageController.animateToPage(id, duration: Duration(milliseconds: 300), curve: Curves.ease);
+        _pageController.animateToPage(_selectedCategory, duration: Duration(milliseconds: 300), curve: Curves.ease);
       },
       borderRadius: BorderRadius.circular(16),
       child: Container(
         color: AppConstant.colorPageBg,
-        height: MediaQuery.of(context).size.height * .07,
+        height: MediaQuery.of(context).size.height * .10,
         width: MediaQuery.of(context).size.width / 2,
         child: Padding(
           padding: const EdgeInsets.only(left: 16, right: 16, top: 4),
@@ -546,18 +548,15 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text('$title',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontWeight: _selectedCategory == id ? FontWeight.bold : FontWeight.normal,
-                  )),
+                  textAlign: TextAlign.center, style: TextStyle(fontWeight: _selectedCategory == id ? FontWeight.bold : FontWeight.normal, fontSize: 14)),
               SizedBox(
                 height: 4,
               ),
               AnimatedContainer(
                 duration: Duration(milliseconds: 300),
                 height: 2,
-                width: _selectedCategory == id ? title.length * 4.5 : 0,
-                decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(4)),
+                width: _selectedCategory == id ? title.length * 2.5 : 0,
+                decoration: BoxDecoration(color: AppConstant.colorPrimary, borderRadius: BorderRadius.circular(4)),
               ),
             ],
           ),
