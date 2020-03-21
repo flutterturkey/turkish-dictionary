@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sozluk/page/search_page.dart';
 import 'package:sozluk/util/app_constant.dart';
-import 'package:sozluk/util/app_widget.dart';
-import 'package:sozluk/util/fade_animation.dart';
-import 'package:sozluk/widget/idiom_card.dart';
+import 'package:sozluk/util/system_overlay.dart';
+import 'package:sozluk/widget/homepage/home_page_list_view.dart';
+import 'package:sozluk/widget/homepage/search_box.dart';
+import 'package:sozluk/widget/homepage/tdk_cover.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,204 +18,107 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var size;
-  bool isKeyboardVisible = false;
   PageController _pageController = PageController(initialPage: 0);
-  int _selectedCategory = 0;
-
   FocusNode _searchFn = FocusNode();
+
+  ScrollController _scrollController;
+
+  double _searchBoxScrollPosition = 40;
+
+  bool _isKeyboardVisible = false;
+  bool _isScrollSearchBody = true;
+
+  int _selectedCategory = 0;
 
   @override
   void initState() {
-    _searchFn.addListener(_searchFnListener);
-    super.initState();
-  }
+    _scrollController = ScrollController()
+      ..addListener(() {
+        setState(() {
+          _searchBoxScrollPosition = 50 - _scrollController.offset;
+          _isScrollSearchBody = _scrollController.offset <= 30;
+        });
+      });
 
-  void _searchFnListener() {
-    if (_searchFn.hasFocus) {
+    _searchFn.addListener(() {
       setState(() {
-        isKeyboardVisible = true;
+        _isKeyboardVisible = _searchFn.hasFocus;
       });
-    } else {
-      setState(() {
-        isKeyboardVisible = false;
-      });
-    }
+    });
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    size = MediaQuery.of(context).size;
-
     return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: SystemUiOverlayStyle(statusBarColor: Colors.transparent, statusBarIconBrightness: isKeyboardVisible ? Brightness.dark : Brightness.light),
+      value: SystemUiOverlayHelper.statusBarBrightness(_isKeyboardVisible),
       child: Stack(
         children: <Widget>[
           Column(
             children: <Widget>[
-              AnimatedOpacity(opacity: isKeyboardVisible ? 0.0 : 1, duration: Duration(milliseconds: 220), child: _tdkCover(0.35)),
+              TdkCover(
+                isKeyboardVisible: _isKeyboardVisible,
+                context: context,
+                scale: 0.35,
+              ),
               Expanded(
                 child: SingleChildScrollView(
-                  padding: EdgeInsets.only(left: 16, right: 16, top: 48, bottom: 32),
+                  controller: _scrollController,
                   child: Padding(
-                      padding: !isKeyboardVisible ? EdgeInsets.only(top: 0.0) : EdgeInsets.only(top: 64.0),
-                      child: isKeyboardVisible
-                          ? buildSearchBody()
-                          : Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Row(
-                                  children: <Widget>[
-                                    Text(
-                                      'Bir Deyim',
-                                      style: TextStyle(color: AppConstant.colorProverbsIdiomsText),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 8),
-                                IdiomCard(title: 'on para', content: 'çok az (para).'),
-                                SizedBox(height: 24),
-                                Row(
-                                  children: <Widget>[
-                                    Text(
-                                      'Bir Atasözü',
-                                      style: TextStyle(color: AppConstant.colorProverbsIdiomsText),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 8),
-                                IdiomCard(title: 'siyem siyem ağlamak', content: 'hafif hafif, ince ince, durmadan gözyaşı dökmek.'),
-                                SizedBox(height: 24),
-                                Row(
-                                  children: <Widget>[
-                                    Text(
-                                      'Bir Kelime',
-                                      style: TextStyle(color: AppConstant.colorProverbsIdiomsText),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 8),
-                                IdiomCard(title: 'Kalem', content: 'Yazma, çizme vb. işlerde kullanılan çeşitli biçimlerde araç.'),
-                                SizedBox(height: 24),
-                                Row(
-                                  children: <Widget>[
-                                    Text(
-                                      'Bir Kelime',
-                                      style: TextStyle(color: AppConstant.colorProverbsIdiomsText),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 8),
-                                IdiomCard(title: 'Kalem', content: 'Yazma, çizme vb. işlerde kullanılan çeşitli biçimlerde araç.'),
-                                SizedBox(height: 24),
-                                Row(
-                                  children: <Widget>[
-                                    Text(
-                                      'Bir Kelime',
-                                      style: TextStyle(color: AppConstant.colorProverbsIdiomsText),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 8),
-                                IdiomCard(title: 'Kalem', content: 'Yazma, çizme vb. işlerde kullanılan çeşitli biçimlerde araç.'),
-                              ],
-                            )),
+                    padding: EdgeInsets.only(top: _isKeyboardVisible ? 102 : 52, bottom: 32),
+                    child: _isKeyboardVisible ? SearchPage() : HomePageListView(),
+                  ),
                 ),
               ),
             ],
           ),
-          AnimatedPositioned(
-            duration: Duration(milliseconds: 220),
-            top: !isKeyboardVisible ? size.height * .35 - 26 : 40,
-            left: 0,
-            right: 0,
-            child: AppWidget.getSearchBox(isKeyboardVisible, context, focusNode: _searchFn),
+          SearchBox(
+            isKeyboardVisible: _isKeyboardVisible,
+            focusNode: _searchFn,
+            isScrollSearchBody: _isScrollSearchBody,
+            searchBoxScrollPosition: _searchBoxScrollPosition,
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 25, 10, 0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                isKeyboardVisible
-                    ? Container()
-                    : IconButton(
-                        icon: Icon(
-                          Icons.more_horiz,
-                          color: Colors.white,
-                        ),
-                        onPressed: () {
-                          _onDrawerButtonPressed();
-                        },
-                      )
-              ],
-            ),
-          )
+          buildMoreButton()
         ],
       ),
     );
   }
 
-  Widget buildSearchBody() {
-    List<String> vowels = ['ç', 'ğ', 'ı', 'ö', 'ş', 'ü', 'â', 'î', 'û'];
-    return FadeAnimation(
-        0.3,
-        Container(
-          child: Column(
-            children: <Widget>[
-              SizedBox(
-                height: 48,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: false,
-                  itemCount: 9,
-                  itemBuilder: (BuildContext ctx, int index) => Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(right: 16, left: 16),
-                        child: Text(
-                          vowels[index],
-                          style: Theme.of(context).textTheme.body2.copyWith(letterSpacing: 0.2),
-                        ),
-                      ),
-                    ],
+  buildMoreButton() {
+    return _isKeyboardVisible
+        ? Container()
+        : Padding(
+            padding: const EdgeInsets.fromLTRB(0, 25, 10, 0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(
+                    Icons.more_horiz,
+                    color: Colors.white,
                   ),
-                ),
-              ),
-              Text("Search results.."),
-              Text("Search results.."),
-              Text("Search results.."),
-            ],
-          ),
-        ));
+                  onPressed: () {
+                    _onDrawerButtonPressed();
+                  },
+                )
+              ],
+            ),
+          );
   }
 
-  Widget _tdkCover(double scale) => Container(
-        height: !isKeyboardVisible ? size.height * scale : 0,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-          image: DecorationImage(
-            image: AssetImage('assets/bg.jpg'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Center(
-          child: SvgPicture.asset(
-            AppConstant.svgLogo,
-            height: 40,
-          ),
-        ),
-      );
-
-  Widget _pullDown(Color color) => Center(
+  _pullDown(Color color) => Center(
         child: Padding(
           padding: const EdgeInsets.only(top: 16.0),
           child: Container(
             width: 58,
             height: 4,
-            decoration: BoxDecoration(color: color, borderRadius: BorderRadius.all(Radius.circular(14))),
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.all(
+                Radius.circular(14),
+              ),
+            ),
           ),
         ),
       );
@@ -253,10 +159,17 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           Stack(
             children: <Widget>[
-              _tdkCover(0.20),
+              TdkCover(
+                isKeyboardVisible: _isKeyboardVisible,
+                context: context,
+                scale: 0.20,
+              ),
               Center(
                 child: Padding(
-                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * .14),
+                  padding: EdgeInsets.only(top: MediaQuery
+                      .of(context)
+                      .size
+                      .height * .14),
                   child: Column(
                     children: <Widget>[
                       Text(
@@ -292,7 +205,9 @@ class _HomePageState extends State<HomePage> {
                   height: 48,
                   elevation: 0,
                   color: AppConstant.colorDrawerButton,
-                  shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(8)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(8),
+                  ),
                   child: Text(
                     AppConstant.hakkinda,
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppConstant.colorHeading),
@@ -309,7 +224,9 @@ class _HomePageState extends State<HomePage> {
                   height: 48,
                   elevation: 0,
                   color: AppConstant.colorDrawerButton,
-                  shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(8)),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(8),
+                  ),
                   child: Text(
                     AppConstant.iletisim,
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppConstant.colorHeading),
@@ -349,7 +266,10 @@ class _HomePageState extends State<HomePage> {
                     color: AppConstant.colorAppDescription,
                   ),
                   children: <TextSpan>[
-                    TextSpan(text: AppConstant.appLongRichDescription, style: TextStyle(fontWeight: FontWeight.bold)),
+                    TextSpan(
+                      text: AppConstant.appLongRichDescription,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
                     TextSpan(text: AppConstant.appLongDescription),
                   ],
                 ),
@@ -357,47 +277,53 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
-      );
+  );
 
-  Widget get _buildIletisimItem => Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          _pullDown(AppConstant.colorPullDown2),
-          _itemTopMenu(AppConstant.iletisimBilgileri),
-          Padding(
-            padding: const EdgeInsets.only(top: 32.0),
-            child: _sectionItem(AppConstant.appDescription, AppConstant.address),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 32),
-            child: _phoneRow(Icons.print),
-          ),
-          Padding(padding: const EdgeInsets.only(left: 32), child: _btnEpostaYaz),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(16, 24, 16, 22),
-            child: Divider(color: AppConstant.colorBottomSheetDivider, thickness: 1),
-          ),
-          _sectionItem(AppConstant.magaza, AppConstant.magazaAddress),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(32, 24, 0, 0),
-            child: MaterialButton(
-              minWidth: 314,
-              height: 48,
-              elevation: 0,
-              color: AppConstant.colorDrawerButton,
-              shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(8)),
-              child: Text(
-                AppConstant.eMagaza,
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppConstant.colorHeading),
-              ),
-              onPressed: _launchURL,
+  Widget get _buildIletisimItem =>
+      SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _pullDown(AppConstant.colorPullDown2),
+            _itemTopMenu(AppConstant.iletisimBilgileri),
+            Padding(
+              padding: const EdgeInsets.only(top: 32.0),
+              child: _sectionItem(AppConstant.appDescription, AppConstant.address),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.only(left: 32),
+              child: _phoneRow(Icons.print),
+            ),
+            Padding(padding: const EdgeInsets.only(left: 32), child: _btnEpostaYaz),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 24, 16, 22),
+              child: Divider(color: AppConstant.colorBottomSheetDivider, thickness: 1),
+            ),
+            _sectionItem(AppConstant.magaza, AppConstant.magazaAddress),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(32, 24, 0, 0),
+              child: MaterialButton(
+                minWidth: 314,
+                height: 48,
+                elevation: 0,
+                color: AppConstant.colorDrawerButton,
+                shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(8),
+                ),
+                child: Text(
+                  AppConstant.eMagaza,
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppConstant.colorHeading),
+                ),
+                onPressed: _launchURL,
+              ),
+            ),
+          ],
+        ),
       );
 
-  Widget _sectionItem(String header, String address) => Padding(
+  Widget _sectionItem(String header, String address) =>
+      Padding(
         padding: const EdgeInsets.fromLTRB(32, 0, 32, 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -457,12 +383,15 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Widget get _btnEpostaYaz => MaterialButton(
+  Widget get _btnEpostaYaz =>
+      MaterialButton(
         minWidth: 152,
         height: 48,
         elevation: 0,
         color: AppConstant.colorDrawerButton,
-        shape: RoundedRectangleBorder(borderRadius: new BorderRadius.circular(8)),
+        shape: RoundedRectangleBorder(
+          borderRadius: new BorderRadius.circular(8),
+        ),
         child: Text(
           AppConstant.epostayaz,
           style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppConstant.colorHeading),
@@ -529,10 +458,14 @@ class _HomePageState extends State<HomePage> {
     return InkWell(
       onTap: () {
         setState(() {
+<<<<<<< HEAD
           _selectedCategory = id;
           //TEST
           print(id);
           print(_selectedCategory);
+=======
+          _selectedCategory = 1;
+>>>>>>> 135c2ba533e3381151be1d984beef0eb0bccd209
         });
         _pageController.animateToPage(_selectedCategory, duration: Duration(milliseconds: 300), curve: Curves.ease);
       },
@@ -547,8 +480,18 @@ class _HomePageState extends State<HomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
+<<<<<<< HEAD
               Text('$title',
                   textAlign: TextAlign.center, style: TextStyle(fontWeight: _selectedCategory == id ? FontWeight.bold : FontWeight.normal, fontSize: 14)),
+=======
+              Text(
+                '$title',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: _selectedCategory == id ? FontWeight.bold : FontWeight.normal,
+                ),
+              ),
+>>>>>>> 135c2ba533e3381151be1d984beef0eb0bccd209
               SizedBox(
                 height: 4,
               ),
