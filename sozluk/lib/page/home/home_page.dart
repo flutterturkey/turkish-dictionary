@@ -65,8 +65,10 @@ class _HomePageState extends State<HomePage> {
                 child: SingleChildScrollView(
                   controller: _scrollController,
                   child: Padding(
-                    padding: EdgeInsets.only(top: _isKeyboardVisible ? 102 : 52, bottom: 32),
-                    child: _isKeyboardVisible ? SearchPage() : HomePageListView(),
+                    padding: EdgeInsets.only(
+                        top: _isKeyboardVisible ? 102 : 52, bottom: 32),
+                    child:
+                        _isKeyboardVisible ? SearchPage() : HomePageListView(),
                   ),
                 ),
               ),
@@ -147,7 +149,10 @@ class _HomePageState extends State<HomePage> {
             Spacer(),
             Text(
               heading,
-              style: TextStyle(fontSize: 14, color: AppConstant.colorHeading, fontWeight: FontWeight.w500),
+              style: TextStyle(
+                  fontSize: 14,
+                  color: AppConstant.colorHeading,
+                  fontWeight: FontWeight.w500),
             ),
             Spacer(),
             Spacer(),
@@ -166,10 +171,8 @@ class _HomePageState extends State<HomePage> {
               ),
               Center(
                 child: Padding(
-                  padding: EdgeInsets.only(top: MediaQuery
-                      .of(context)
-                      .size
-                      .height * .14),
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * .14),
                   child: Column(
                     children: <Widget>[
                       Text(
@@ -180,7 +183,9 @@ class _HomePageState extends State<HomePage> {
                         padding: const EdgeInsets.only(top: 10.0),
                         child: Text(
                           AppConstant.appVersion,
-                          style: TextStyle(fontSize: 12, color: AppConstant.colorVersionText),
+                          style: TextStyle(
+                              fontSize: 12,
+                              color: AppConstant.colorVersionText),
                         ),
                       ),
                     ],
@@ -210,7 +215,10 @@ class _HomePageState extends State<HomePage> {
                   ),
                   child: Text(
                     AppConstant.hakkinda,
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppConstant.colorHeading),
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: AppConstant.colorHeading),
                   ),
                   onPressed: () {
                     _onHakkindaButtonPressed();
@@ -229,7 +237,10 @@ class _HomePageState extends State<HomePage> {
                   ),
                   child: Text(
                     AppConstant.iletisim,
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppConstant.colorHeading),
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: AppConstant.colorHeading),
                   ),
                   onPressed: () {
                     _onIletisimButtonPressed();
@@ -277,10 +288,9 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
-  );
+      );
 
-  Widget get _buildIletisimItem =>
-      SingleChildScrollView(
+  Widget get _buildIletisimItem => SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -289,16 +299,19 @@ class _HomePageState extends State<HomePage> {
             _itemTopMenu(AppConstant.iletisimBilgileri),
             Padding(
               padding: const EdgeInsets.only(top: 32.0),
-              child: _sectionItem(AppConstant.appDescription, AppConstant.address),
+              child:
+                  _sectionItem(AppConstant.appDescription, AppConstant.address),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 32),
               child: _phoneRow(Icons.print),
             ),
-            Padding(padding: const EdgeInsets.only(left: 32), child: _btnEpostaYaz),
+            Padding(
+                padding: const EdgeInsets.only(left: 32), child: _btnEpostaYaz),
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 24, 16, 22),
-              child: Divider(color: AppConstant.colorBottomSheetDivider, thickness: 1),
+              child: Divider(
+                  color: AppConstant.colorBottomSheetDivider, thickness: 1),
             ),
             _sectionItem(AppConstant.magaza, AppConstant.magazaAddress),
             Padding(
@@ -313,7 +326,10 @@ class _HomePageState extends State<HomePage> {
                 ),
                 child: Text(
                   AppConstant.eMagaza,
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppConstant.colorHeading),
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: AppConstant.colorHeading),
                 ),
                 onPressed: _launchURL,
               ),
@@ -322,8 +338,7 @@ class _HomePageState extends State<HomePage> {
         ),
       );
 
-  Widget _sectionItem(String header, String address) =>
-      Padding(
+  Widget _sectionItem(String header, String address) => Padding(
         padding: const EdgeInsets.fromLTRB(32, 0, 32, 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -383,8 +398,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Widget get _btnEpostaYaz =>
-      MaterialButton(
+  Widget get _btnEpostaYaz => MaterialButton(
         minWidth: 152,
         height: 48,
         elevation: 0,
@@ -394,7 +408,10 @@ class _HomePageState extends State<HomePage> {
         ),
         child: Text(
           AppConstant.epostayaz,
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: AppConstant.colorHeading),
+          style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.bold,
+              color: AppConstant.colorHeading),
         ),
         onPressed: _sendMail,
       );
@@ -416,29 +433,16 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(32, 30, 32, 24),
-                  child: Text(AppConstant.katkiOneriDetails, style: _bottomSheetTextStyleF14W500),
+                  child: Text(
+                    AppConstant.katkiOneriDetails,
+                    style: _bottomSheetTextStyleF14W500,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
                 _btnEpostaYaz
               ],
             ),
           )
-        ],
-      );
-
-  Widget get _renderItem => Column(
-        children: <Widget>[
-          Expanded(
-            child: PageView(
-              controller: _pageController,
-              onPageChanged: (int page) {
-                setState(() {
-                  _selectedCategory = page;
-                });
-              },
-              children: <Widget>[_buildIletisimItem, _buildKatkiItem],
-            ),
-          ),
-          _selectCategory
         ],
       );
 
@@ -461,7 +465,8 @@ class _HomePageState extends State<HomePage> {
         setState(() {
           _selectedCategory = 1;
         });
-        _pageController.animateToPage(id, duration: Duration(milliseconds: 300), curve: Curves.ease);
+        _pageController.animateToPage(id,
+            duration: Duration(milliseconds: 300), curve: Curves.ease);
       },
       borderRadius: BorderRadius.circular(16),
       child: Container(
@@ -478,7 +483,9 @@ class _HomePageState extends State<HomePage> {
                 '$title',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontWeight: _selectedCategory == id ? FontWeight.bold : FontWeight.normal,
+                  fontWeight: _selectedCategory == id
+                      ? FontWeight.bold
+                      : FontWeight.normal,
                 ),
               ),
               SizedBox(
@@ -488,7 +495,8 @@ class _HomePageState extends State<HomePage> {
                 duration: Duration(milliseconds: 300),
                 height: 2,
                 width: _selectedCategory == id ? title.length * 4.5 : 0,
-                decoration: BoxDecoration(color: Colors.red, borderRadius: BorderRadius.circular(4)),
+                decoration: BoxDecoration(
+                    color: Colors.red, borderRadius: BorderRadius.circular(4)),
               ),
             ],
           ),
@@ -507,7 +515,8 @@ class _HomePageState extends State<HomePage> {
         builder: (context) {
           return Container(
             height: MediaQuery.of(context).size.height * .5,
-            child: Container(child: _buildDrawerItem, decoration: _bottomSheetBoxDecoration),
+            child: Container(
+                child: _buildDrawerItem, decoration: _bottomSheetBoxDecoration),
           );
         });
   }
@@ -520,7 +529,9 @@ class _HomePageState extends State<HomePage> {
         builder: (context) {
           return Container(
             height: MediaQuery.of(context).size.height * .5,
-            child: Container(child: _buildHakkindaItem, decoration: _bottomSheetBoxDecoration),
+            child: Container(
+                child: _buildHakkindaItem,
+                decoration: _bottomSheetBoxDecoration),
           );
         });
   }
@@ -532,9 +543,34 @@ class _HomePageState extends State<HomePage> {
         isScrollControlled: true,
         backgroundColor: Colors.transparent,
         builder: (context) {
-          return Container(
-            height: MediaQuery.of(context).size.height * .9,
-            child: Container(child: _renderItem, decoration: _bottomSheetBoxDecoration),
+          return StatefulBuilder(
+            builder: (context, StateSetter stateSetter) {
+              return Container(
+                height: MediaQuery.of(context).size.height * .9,
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      Expanded(
+                        child: PageView(
+                          controller: _pageController,
+                          onPageChanged: (int page) {
+                            stateSetter(() {
+                              _selectedCategory = page;
+                            });
+                          },
+                          children: <Widget>[
+                            _buildIletisimItem,
+                            _buildKatkiItem
+                          ],
+                        ),
+                      ),
+                      _selectCategory
+                    ],
+                  ),
+                  decoration: _bottomSheetBoxDecoration,
+                ),
+              );
+            },
           );
         });
   }
@@ -547,5 +583,8 @@ class _HomePageState extends State<HomePage> {
         ),
       );
 
-  static TextStyle get _bottomSheetTextStyleF14W500 => TextStyle(color: AppConstant.colorParagraph2, fontSize: 14, fontWeight: FontWeight.w500);
+  static TextStyle get _bottomSheetTextStyleF14W500 => TextStyle(
+      color: AppConstant.colorParagraph2,
+      fontSize: 14,
+      fontWeight: FontWeight.w500);
 }
