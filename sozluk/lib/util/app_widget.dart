@@ -121,4 +121,15 @@ class AppWidget {
       ],
     );
   }
+
+  static Widget pullDown(Color color) => Center(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 16.0),
+          child: Container(
+            width: 58,
+            height: 4,
+            decoration: BoxDecoration(color: color, borderRadius: BorderRadius.all(Radius.circular(14))),
+          ),
+        ),
+      );
 }
