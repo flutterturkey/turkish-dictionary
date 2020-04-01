@@ -7,6 +7,7 @@ class AppConstant {
   static final Color colorHeading = Color(0xFF0A151F);
   static final Color colorParagraph = Color(0xFF4B5866);
   static final Color colorParagraph2 = Color(0xFF758291);
+  static final Color colorVowelBg = Color(0xFFF0F0F0);
   static final Color colorUnifiedWordBg = Color(0xFFE8F0F1);
   static final Color colorUnifiedWordSearch = Color(0xFF73A5AA);
   static final Color colorUnifiedWordText = Color(0xFF2E494C);
@@ -19,6 +20,8 @@ class AppConstant {
   static final Color colorPullDown2 = Color(0xFFDEE3E3);
   static final Color colorBackButton = Color(0xFF48515B);
   static final Color colorAppDescription = Color(0xFF33414C);
+  static final Color colorBottomSheetItemHeader = Color(0xFF183148);
+  static final Color colorBottomSheetDivider = Color(0xFFEEF0F2);
 
   //endregion
 
@@ -31,6 +34,7 @@ class AppConstant {
   static const double fontSizeDisplay = 32;
   static const double fontSizeIdiomCardTitle = 18;
   static const double fontSizeIdiomCardContent = 12;
+
   //endregion
 
   //region strings
@@ -39,19 +43,33 @@ class AppConstant {
   static final String appVersion = "v.1.0";
   static final String hakkinda = "Hakkında";
   static final String iletisim = "İletişim";
+  static final String iletisimBilgileri = 'İletişim Bilgileri';
+  static final String epostayaz = 'E-Posta Yaz';
+  static final String atasozudeyim = 'Atasözü & Deyim';
+  static final String katkioneri = 'Katkı ve Öneriler';
+  static final String katkiOneriDetails = 'Katkı ve önerileriniz için bize e-posta gönderebilirsiniz.';
+  static final String address = 'Atatürk Bulvarı No: 217 06680 Kavaklıdere/ANKARA';
+  static final String phoneNumber = '+90 312 457 52 00';
+  static final String eposta = 'bilgi@tdk.gov.tr';
+  static final String magaza = 'Kızılay Kitap Satış Mağazası';
+  static final String eMagaza = 'E-Mağazaya Git';
+  static final String magazaAddress = 'Cumhuriyet Mahallesi, Bayındır 1 Sokak, No: 24/6 Kızılay/ANKARA';
   static final String appLongRichDescription = "Türk Dil Kurumu";
   static final String appLongDescription =
       '’nun 1945’ten beri yayımlanan Türkçe Sözk’ünün 2011 yılında yapılan 11. baskısının gözden geçirilip güncellenerek taşınabilir cihazlar için hazırlanan sürümüdür.';
+
   //endregion
   //endregion
 
   //region Page
   static final String pageSplash = "/";
   static final String pageHome = "/home";
+
   //endregion
 
   //region Assets
   static final String svgLogo = "assets/tdk_logo.svg";
   static final String svgLogoRed = "assets/tdk_logo_red.svg";
-  //endregion
+  static final String svgMessage = "assets/tdk_icon_message.svg";
+//endregion
 }
