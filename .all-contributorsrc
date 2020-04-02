@@ -1,0 +1,24 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "mirkancal",
+      "name": "Mirkan Çalışkan",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/26160059?v=4",
+      "profile": "https://soundcloud.com/mirkancal13",
+      "contributions": [
+        "maintenance"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "turkish-dictionary",
+  "projectOwner": "flutterturkey",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
