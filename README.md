@@ -38,7 +38,6 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://soundcloud.com/mirkancal13"><img src="https://avatars2.githubusercontent.com/u/26160059?v=4" width="100px;" alt=""/><br /><sub><b>Mirkan Çalışkan</b></sub></a><br /><a href="#maintenance-mirkancal" title="Maintenance">🚧</a></td>
     <td align="center"><a href="https://adem68.github.io/"><img src="https://avatars0.githubusercontent.com/u/21019611?v=4" width="100px;" alt=""/><br /><sub><b>Adem Furkan ÖZCAN</b></sub></a><br /><a href="https://github.com/flutterturkey/turkish-dictionary/commits?author=Adem68" title="Code">💻</a> <a href="#maintenance-Adem68" title="Maintenance">🚧</a></td>
   </tr>
 </table>
