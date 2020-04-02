@@ -1,10 +1,9 @@
 ![Thumbnail](thumbnail.png)
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
-[![GitHub contributors](https://img.shields.io/github/contributors/flutterturkey/turkish-dictionary)](https://github.com/flutterturkey/turkish-dictionary/contributors)
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 ![GitHub stars](https://img.shields.io/github/stars/flutterturkey/turkish-dictionary?style=social)
 
 ## Turkish Dictionary
@@ -29,11 +28,6 @@ Unofficial Turkish Dictionary app of [TDK (Turkish Language Association)](http:/
 - [Figma File](https://www.figma.com/file/JqpfJNo6eEJzPpTOEi3Irt/TDK-Redesign)  
 - [Dribble](https://dribbble.com/shots/10736386-Turkish-Dictionary-Application)
 
-####  Development Team:
-
-| [<img src="https://avatars.githubusercontent.com/u/21019611?v=3" width="100px;"/>](https://github.com/Adem68)|[<img src="https://avatars.githubusercontent.com/u/23120302?v=3" width="100px;"/>](https://github.com/AliAnilKocak)|[<img src="https://avatars.githubusercontent.com/u/24523510?v=3" width="100px;"/>](https://github.com/right7ctrl)|[<img src="https://avatars.githubusercontent.com/u/33984759?v=3" width="100px;"/>](https://github.com/mukireus)|[<img src="https://avatars.githubusercontent.com/u/24685929?v=3" width="100px;"/>](https://github.com/merttoptas)|[<img src="https://avatars.githubusercontent.com/u/26160059?v=3" width="100px;"/>](https://github.com/mirkancal)|
-|---|---|---|---|---|---|
-|Adem Furkan ÖZCAN|Ali Anıl KOÇAK|Murat ASLAN|Muhammet ÖMER|Mert TOPTAS|Mirkan ÇALIŞKAN|
 
 ## Contributors ✨
 
@@ -44,7 +38,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://soundcloud.com/mirkancal13"><img src="https://avatars2.githubusercontent.com/u/26160059?v=4" width="100px;" alt=""/><br /><sub><b>Mirkan Çalışkan</b></sub></a><br /><a href="#maintenance-mirkancal" title="Maintenance">🚧</a> <a href="https://github.com/flutterturkey/turkish-dictionary/commits?author=mirkancal" title="Code">💻</a></td>
+    <td align="center"><a href="https://soundcloud.com/mirkancal13"><img src="https://avatars2.githubusercontent.com/u/26160059?v=4" width="100px;" alt=""/><br /><sub><b>Mirkan Çalışkan</b></sub></a><br /><a href="#maintenance-mirkancal" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://adem68.github.io/"><img src="https://avatars0.githubusercontent.com/u/21019611?v=4" width="100px;" alt=""/><br /><sub><b>Adem Furkan ÖZCAN</b></sub></a><br /><a href="https://github.com/flutterturkey/turkish-dictionary/commits?author=Adem68" title="Code">💻</a> <a href="#maintenance-Adem68" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://coolflutter.com"><img src="https://avatars3.githubusercontent.com/u/23120302?v=4" width="100px;" alt=""/><br /><sub><b>Ali Anıl Koçak</b></sub></a><br /><a href="https://github.com/flutterturkey/turkish-dictionary/commits?author=AliAnilKocak" title="Code">💻</a> <a href="#maintenance-AliAnilKocak" title="Maintenance">🚧</a></td>
   </tr>
 </table>
 
