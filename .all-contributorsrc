@@ -6,16 +6,6 @@
   "commit": false,
   "contributors": [
     {
-      "login": "mirkancal",
-      "name": "Mirkan Çalışkan",
-      "avatar_url": "https://avatars2.githubusercontent.com/u/26160059?v=4",
-      "profile": "https://soundcloud.com/mirkancal13",
-      "contributions": [
-        "maintenance",
-        "code"
-      ]
-    },
-    {
       "login": "Adem68",
       "name": "Adem Furkan ÖZCAN",
       "avatar_url": "https://avatars0.githubusercontent.com/u/21019611?v=4",
@@ -30,6 +20,16 @@
       "name": "Ali Anıl Koçak",
       "avatar_url": "https://avatars3.githubusercontent.com/u/23120302?v=4",
       "profile": "https://coolflutter.com",
+      "contributions": [
+        "code",
+        "maintenance"
+      ]
+    },
+    {
+      "login": "mirkancal",
+      "name": "Mirkan Çalışkan",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/26160059?v=4",
+      "profile": "https://soundcloud.com/mirkancal13",
       "contributions": [
         "code",
         "maintenance"
