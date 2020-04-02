@@ -44,6 +44,15 @@
         "code",
         "maintenance"
       ]
+    },
+    {
+      "login": "mukireus",
+      "name": "Muhammet ÖMER",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/33984759?v=4",
+      "profile": "https://www.linkedin.com/in/muhammetomer/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
