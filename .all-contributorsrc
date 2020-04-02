@@ -54,6 +54,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "merttoptas",
+      "name": "Mert Toptas",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/24685929?v=4",
+      "profile": "http://merttoptas.com",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
