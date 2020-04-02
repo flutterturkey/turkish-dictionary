@@ -44,7 +44,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://soundcloud.com/mirkancal13"><img src="https://avatars2.githubusercontent.com/u/26160059?v=4" width="100px;" alt=""/><br /><sub><b>Mirkan Çalışkan</b></sub></a><br /><a href="#maintenance-mirkancal" title="Maintenance">🚧</a></td>
+    <td align="center"><a href="https://soundcloud.com/mirkancal13"><img src="https://avatars2.githubusercontent.com/u/26160059?v=4" width="100px;" alt=""/><br /><sub><b>Mirkan Çalışkan</b></sub></a><br /><a href="#maintenance-mirkancal" title="Maintenance">🚧</a> <a href="https://github.com/flutterturkey/turkish-dictionary/commits?author=mirkancal" title="Code">💻</a></td>
   </tr>
 </table>
 
